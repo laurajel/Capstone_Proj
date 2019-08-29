@@ -1,2 +1,4 @@
-# Capstone_Proj
-Repo for NYCDSA Capstone Project
+# Capstone Project
+Repo for NYCDSA Capstone Project on Adolescent Violence
+
+Using YRBSS data
