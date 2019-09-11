@@ -176,7 +176,7 @@ box2 + ggtitle("Weapons and Body Weight Unweighted") +
 #### Stacked by other survey Qs
 
 cdc_data %>%
-  ggplot(aes(x = q16, weight = weight )) +
+  ggplot(aes(x = weapons_all, weight = weight )) +
   geom_bar(aes(fill = sex_id), position = "fill") +
   coord_flip() +
   ggtitle("Weapons and Grade Unweighted") + 

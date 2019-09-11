@@ -9,7 +9,7 @@ head(cdc_data)
 
 
 ## removing index variable X from python clean
-cdc_data =  select(cdc_data, -1, -3)
+cdc_data2 = select(cdc_data, -1, -3)
 head(cdc_data)
 
 cdc_data2 = cdc_data
@@ -1237,14 +1237,6 @@ colnames(cdc_data2)[colnames(cdc_data2) == "q99"] = "dEnglish"
 
 head(cdc_data2)
 
-
+##############
 
 write.csv(cdc_data2, "survey_answers.csv")
-
-
-
-
-
-
-
-
