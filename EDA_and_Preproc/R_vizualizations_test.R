@@ -5,10 +5,15 @@ library(survey)
 library(formattable)
 library(tidyr)
 library(data.table)
-library(randomForest)
 library(knitr)
 library(questionr)
 library(stargazer)
+########## COLORs
+customGreen0 = "#DeF7E9"
+
+customGreen = "#71CA97"
+
+customRed = "#ff7f7f"
 
 cdc_data = read.csv('cdc_data_noNA.csv')
 cdc_data2 = read.csv('survey_answers.csv')
@@ -25,14 +30,15 @@ des<-svydesign(ids=~1, strata=~stratum, weights=~weight, data = cdc_data2[is.na(
 summary(des)
 svymean(~weapons_all, des)
 
-table.weight = wtd.table(cdc_data2$weapons_all, cdc_data2$raceeth, weights = cdc_data2$weight)
-formattable(table.weight)
-
 #### Summary stats  all weapons####################
 ### proportions weighted, unweighted
 table = prop.table(wtd.table(cdc_data2$weapons_all, cdc_data2$raceeth, weights = cdc_data2$weight), margin=2)
-prop.table(wtd.table(cdc_data2$weapons_all, cdc_data2$raceeth), margin=2)
 formattable(table)
+
+table = prop.table(wtd.table(cdc_data2$weapons_all, cdc_data2$Sex, weights = cdc_data2$weight), margin=2)
+formattable(table)
+
+
 
 ### std. error or percentages
 n<-table(is.na(cdc_data2$weapons_all)==F)
@@ -207,8 +213,8 @@ GBarChart <- data.frame(grade = names(table(groupM$grade)),
 
 
 plot_ly(GBarChart,
-        x = ~grade,
-        y = ~GroupM,
+        x = ~raceeth,
+        y = ~weapons_all,
         type = "bar",
         name = "Male",
         marker = list(color = "rgba(53, 61, 219, 0.7)",
