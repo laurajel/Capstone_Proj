@@ -61,24 +61,6 @@ svytble = svyby(formula = ~weapons_all, by = ~raceeth, design = des, FUN = svyme
 formattable(svytble)
 
 ## EDA, Demo
-summarize(cdc_data2, N_hat = sum(cdc_data2$weight))
-
-### weights
-ggplot(data = cdc_data, mapping = aes(x = weight, color = raceeth)) +
-  geom_freqpoly(binwidth = 0.1)
-
-ggplot(data = cdc_data, mapping = aes(x = weight, color = age)) +
-  geom_freqpoly(binwidth = 0.1)
-
-
-ggplot(data = cdc_data, mapping = aes(x = weight, color = grade)) +
-  geom_freqpoly(binwidth = 0.1)
-
-ggplot(data = cdc_data, mapping = aes(x = weight, color = Sex)) +
-  geom_freqpoly(binwidth = 0.1)
-
-ggplot(data = cdc_data, mapping = aes(x = weight, color = sex_id)) +
-  geom_freqpoly(binwidth = 0.1)
 
 ##### Stacked bar Demo >>> weapons_all
 ### weighted 
@@ -181,29 +163,13 @@ box2 + ggtitle("Weapons and Body Weight Unweighted") +
 
 #### Stacked by other survey Qs
 
-cdc_data %>%
+cdc_data2 %>%
   ggplot(aes(x = weapons_all, weight = weight )) +
-  geom_bar(aes(fill = sex_id), position = "fill") +
+  geom_bar(aes(fill = age), position = "fill") +
   coord_flip() +
   ggtitle("Weapons and Grade Unweighted") + 
-  labs(y="Count", x = "Weapons Carry")
+  labs(y="Proportion", x = "Weapons Carry")
 
-
-##### tables, chisq
-table(cdc_data$raceeth, cdc_data$q13)
-chisq.test(table(cdc_data$raceeth, cdc_data$q13)) 
-
-table(cdc_data$age, cdc_data$q13)
-chisq.test(table(cdc_data$age, cdc_data$q13)) 
-
-table(cdc_data$sex_id, cdc_data$q13)
-chisq.test(table(cdc_data$sex_id, cdc_data$q13)) 
-
-table(cdc_data$grade, cdc_data$q13)
-chisq.test(table(cdc_data$grade, cdc_data$q13)) 
-
-table(cdc_data$Sex, cdc_data$q13)
-chisq.test(table(cdc_data$Sex, cdc_data$q13)) 
 
 formattable(tbl)
 #######################3

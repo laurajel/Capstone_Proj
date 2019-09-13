@@ -9,7 +9,9 @@ library(caret)
 library(carData)
 library(MASS)
 library(caTools)
+library(RColorBrewer)
 library(randomForest)
+
 
 options(max.print=100000)
 cdc_data2 = read.csv('survey_answers.csv')
@@ -294,4 +296,121 @@ importance <- varImp(model, scale=FALSE)
 print(importance)
 # plot importance
 plot(importance) 
-  
+
+
+###################### clustering
+library(flexclust)
+
+cdc_clus = read.csv('XXHq_2017.csv')
+head(cdc_clus)
+
+cdc_clus = select(cdc_clus, -1, -3, -4, -5, -6, -108, -109)
+cdc_clus = select(cdc_clus, -6)
+head(cdc_clus)
+
+val = unique(cdc_clus[!is.na(cdc_clus)])
+mode = val[which.max(tabulate(match(cdc_clus, val)))]
+cdc_clus[is.na(cdc_clus)] = mode 
+
+sum(is.na(cdc_clus))
+head(cdc_clus)
+
+cdc_violence1 = cdc_clus %>%
+  select(q1, q2, q3, q6, q7, q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q23,q24,
+         q25,q26,q30,q44,q46,q49, q50, q51, q52, q53, q55, q56, q59,q67, q88, q89)
+
+library(igraph)
+library(RColorBrewer)
+
+mat <- cor(t(cdc_violence1))
+mat[mat<0.50] <- 0
+
+coul <- brewer.pal(nlevels(as.factor(cdc_violence1$q2)), "Set2")
+network <- graph_from_adjacency_matrix( mat, weighted=T, mode="undirected", diag=F)
+plot(network)
+
+# Map the color to cylinders
+my_color <- coul[as.numeric(as.factor(cdc_violence$q2))]
+
+
+# plot
+par(bg="grey13", mar=c(0,0,0,0))
+set.seed(4)
+plot(network, 
+     vertex.size=12,
+     vertex.color=my_color, 
+     vertex.label.cex=0.7,
+     vertex.label.color="white",
+     vertex.frame.color="transparent"
+)
+
+# title and legend
+text(0,0,"mtcars network",col="white", cex=1.5)
+legend(x=-0.2, y=-0.12, 
+       legend=paste( levels(as.factor(mtcars$cyl)), " cylinders", sep=""), 
+       col = coul , 
+       bty = "n", pch=20 , pt.cex = 2, cex = 1,
+       text.col="white" , horiz = F)
+
+#######################################################################################
+cdc_data2 = read.csv('survey_answers.csv')
+
+
+install.packages("collapsibleTree")
+library(collapsibleTree) 
+
+cdc_weapons = cdc_data2 %>%
+  select(raceeth, weapons_all, age, grade, Sex)
+
+# Represent this tree:
+p <- collapsibleTree(cdc_weapons, c( "raceeth", "Sex", "age", "grade", "weapons_all"))
+p
+
+#######################################################################################
+install.packages("networkD3")
+library(networkD3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cdc.scaled = as.data.frame(scale(cdc_violence))
+summary(cdc.scaled)
+sapply(cdc.scaled, sd)
+
+d = dist(cdc.scaled)
+
+fit.single = hclust(d, method = "single")
+fit.complete = hclust(d, method = "complete")
+fit.average = hclust(d, method = "average")
+
+plot(fit.single, hang = -1, main = "Dendrogram of Single Linkage")
+plot(fit.complete, hang = -1, main = "Dendrogram of Complete Linkage")
+plot(fit.average, hang = -1, main = "Dendrogram of Average Linkage")
+
+clusters.average = cutree(fit.average, k = 5)
+table(clusters.average)
+
+aggregate(cdc_clus, by = list(cluster = clusters.average), median)
+
+aggregate(cdc.scaled, by = list(cluster = clusters.average), median)
+
+par(mfrow = c(1, 1))
+plot(fit.average, hang = -1, main = "Dendrogram of Average Linkage\n5 Clusters")
+rect.hclust(fit.average, k = 5)
+
+
+
+
+
+
+
