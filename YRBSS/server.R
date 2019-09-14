@@ -6,17 +6,30 @@ library(plotly)
 
 
 shinyServer(function(input, output){ 
-    #output$map <- renderGvis({
-    #    gvisGeoChart(state_race_input <- state_race_input[ state_race_input$Victim_race == input$selected,], locationvar='State.x',
-    #                 colorvar= "Relative-Percent",
-    #                 hovervar = "State_name",
-    #                 options=list(region="US", 
-    #                              displayMode="regions", 
-    #                              resolution="provinces",
-    #                              color = 'red',
-    #                              colorAxis = "{minValue: -100,maxValue: 100,  colors: ['#00FF00','#FF0000']}"))
-    ##})
-    
+    output$students <- renderValueBox({
+         valueBox(
+            value = formatC(3243, digits = 1, format = "d"),
+            subtitle = "Surveyed Students (Ages 13-18)",
+            icon = icon("user-graduate"),
+            color = "light-blue"
+        )
+    })
+    output$girls <- renderValueBox({
+        valueBox(
+            value = formatC(23432, digits = 1, format = "d"),
+            subtitle = "Girls in Survey",
+            icon = icon("female"),
+            color = "maroon"
+        )
+    })
+    output$boys <- renderValueBox({
+        valueBox(
+            value = formatC(2230, digits = 1, format = "d"),
+            subtitle = "Boys in Survey",
+            icon = icon("male"),
+            color = "blue"
+        )
+    })
 })
 
 
