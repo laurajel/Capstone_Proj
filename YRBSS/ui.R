@@ -4,17 +4,27 @@ shinyUI(dashboardPage(
     dashboardHeader(title = "YRBSS Data"),
     dashboardSidebar(
         sidebarMenu(
-            menuItem("Survey Demographics", tabName = "demo", icon = icon("flag")),
-            menuItem("Youth Violence", tabName = "vio", icon = icon("balance-scale")),
-            menuItem("Youth Drug Use", tabName = "drug", icon = icon("layer-group"))
+            menuItem("Research Summary", tabName = "rs", icon = icon("book-reader")),
+            menuItem("Survey Demographics", tabName = "demo", icon = icon("users")),
+            menuItem("Youth Violence", tabName = "vio", icon = icon("ambulance")),
+            menuItem("Youth Drug Use", tabName = "drug", icon = icon("pills"))
         )),
     dashboardBody(
         tabItems(
+            tabItem(tabName = "rs",
+                    fluidRow(
+                        box(
+                            tags$header("YBRSS Summary"), br(), tags$header("Key Findings"), br(), tags$header("Violence"), br()
+                            ,tags$header("Drug Use"),br(),tags$header("Suicide Risk"))
+                    )),
             tabItem(tabName = "demo",
                     fluidRow(
                         valueBoxOutput("students"),
                         valueBoxOutput("girls"),
-                        valueBoxOutput("boys")
+                        valueBoxOutput("boys"),
+                        valueBoxOutput("mgrade"),
+                        valueBoxOutput("mage")
+                        
                     ),
                     fluidRow(
                         box(

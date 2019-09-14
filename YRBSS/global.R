@@ -7,8 +7,27 @@ library(leaflet)
 
 #FOR LOADING AND AGGREGATING DATA AND SELECTIZED OPTIONS
 
-#police <- readRDS("police_final.rds")
+demo <- read.csv("/Users/ktread/Capstone_Proj/EDA_and_Preproc/demographic.csv")
 
+total <- nrow(demo)
+
+gender <- demo %>% 
+  group_by(sex) %>% 
+  summarise(total = n())
+
+girls <- gender %>% 
+  filter(sex == "Female") %>% 
+  select(total)
+
+boys <- gender %>% 
+  filter(sex == "Male") %>% 
+  select(total)
+
+
+median_grade <- median(na.omit(substr(demo$grade,1, str_locate(demo$grade, "th grade")[,1]-1)))
+median_age <- median(na.omit(demo$age))
+
+  
 
 #EXAMPLES
 
