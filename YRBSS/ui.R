@@ -1,33 +1,60 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+library(shinydashboard)
 
-library(shiny)
+shinyUI(dashboardPage(
+    dashboardHeader(title = "YRBSS Data"),
+    dashboardSidebar(
+        sidebarMenu(
+            menuItem("Survey Demographics", tabName = "demo", icon = icon("flag")),
+            menuItem("Youth Violence", tabName = "vio", icon = icon("balance-scale")),
+            menuItem("Youth Drug Use", tabName = "drug", icon = icon("layer-group"))
+        )),
+    dashboardBody(
+        tabItems(
+            tabItem(tabName = "demo",
+                    fluidRow(
+                        box(
+                            width = 12,
+                            title = HTML("Survey Demographics")
+                        ),
+                        box(
+                            title = "Gender"),
+                        box(
+                            title = "Age"))),
+            tabItem(tabName = "vio",
+                    fluidRow(
+                        box(
+                            width = 12,
+                            #plotlyOutput("view_by"),
+                            title = "Title"
+                        )),
+                    fluidRow(
+                        box(
+                            title = "Title"
+                        ),
+                        box(
+                            title = "Title"
+                        )),
+                    fluidRow(
+                        box(
+                            title = "Title"
+                        ),
+                        box(
+                            title = "Title"
+                        )),
+                    fluidRow(
+                        box(
+                            width = 12,
+                            title = "Title"
+                        ))
+            ),
+            tabItem(tabName = "drug",
+                    fluidRow(
+                        box(
+                            #varSelectInput("variable", "Variable:", police_detail),
+                            #selectizeInput("views","Select Details to Explore", views),
+                            width = 12,
+                            #plotlyOutput("view_by"),
+                            title = paste("Title")
+                        )))
+        ))))
 
-# Define UI for application that draws a histogram
-shinyUI(fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotOutput("distPlot")
-        )
-    )
-))
