@@ -12,6 +12,11 @@ shinyUI(dashboardPage(
         tabItems(
             tabItem(tabName = "demo",
                     fluidRow(
+                        valueBoxOutput("students"),
+                        valueBoxOutput("girls"),
+                        valueBoxOutput("boys")
+                    ),
+                    fluidRow(
                         box(
                             width = 12,
                             title = HTML("Survey Demographics")
