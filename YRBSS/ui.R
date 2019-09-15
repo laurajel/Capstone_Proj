@@ -4,7 +4,7 @@ shinyUI(dashboardPage(
     dashboardHeader(title = "YRBSS Data"),
     dashboardSidebar(
         sidebarMenu(
-           # menuItem("Research Summary", tabName = "rs", icon = icon("book-reader")),
+            menuItem("Research Summary", tabName = "rs", icon = icon("book-reader")),
             menuItem("Survey Demographics", tabName = "demo", icon = icon("users")),
             menuItem("Youth Violence", tabName = "vio", icon = icon("ambulance")),
             menuItem("Youth Drug Use", tabName = "drug", icon = icon("pills"))
