@@ -8,15 +8,15 @@ library(plotly)
 shinyServer(function(input, output){ 
     output$students <- renderValueBox({
          valueBox(
-            value = formatC(total, digits = 1, format = "d"),
-            subtitle = "Surveyed Students (Ages 13-18)",
+            value = total,
+            subtitle = "Surveyed Students (Ages 12-18)",
             icon = icon("user-graduate"),
             color = "light-blue"
         )
     })
     output$girls <- renderValueBox({
         valueBox(
-            value = formatC(girls, digits = 1, format = "d"),
+            value = girls,
             subtitle = "Girls in Survey",
             icon = icon("female"),
             color = "maroon"
@@ -24,7 +24,7 @@ shinyServer(function(input, output){
     })
     output$boys <- renderValueBox({
         valueBox(
-            value = formatC(boys, digits = 1, format = "d"),
+            value = boys,
             subtitle = "Boys in Survey",
             icon = icon("male"),
             color = "blue"
@@ -32,20 +32,21 @@ shinyServer(function(input, output){
     })
     output$mgrade <- renderValueBox({
         valueBox(
-            value = formatC(median_grade, digits = 1, format = "d"),
-            subtitle = "Boys in Survey",
-            icon = icon("male"),
-            color = "blue"
+            value = paste0(median_grade,"th grade"),
+            subtitle = "Meidan Grade of Students",
+            icon = icon("school"),
+            color = "olive"
         )
     })
     output$mage <- renderValueBox({
-        valueBox(
-            value = formatC(median_age, digits = 1, format = "d"),
-            subtitle = "Boys in Survey",
-            icon = icon("male"),
-            color = "blue"
-        )
+        valueBox(value = median_age,subtitle = "Median Age of Students",icon = icon("birthday-cake"),color = "orange")
     })
+    
+    output$gen_race <- renderPlotly({gender_race_plot})
+    output$gen_age <- renderPlotly({age_gender_plot})
+    output$kde_h <- renderPlotly({kde_height})
+    output$kde_w <- renderPlotly({kde_weight})
+
 })
 
 
