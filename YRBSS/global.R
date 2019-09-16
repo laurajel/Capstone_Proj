@@ -11,8 +11,8 @@ library(dplyr)
 
 ## DATA LOAD AND PREP
 
-demo <- read.csv("/Users/ktread/Capstone_Proj/EDA_and_Preproc/demographic.csv")
-answers <- read.csv("/Users/ktread/Capstone_Proj/DATA/weighted_2017.csv")
+demo <- read.csv("../EDA_and_Preproc/demographic.csv")
+answers <- read.csv("../DATA/weighted_2017.csv")
 
 
 

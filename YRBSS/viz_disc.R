@@ -104,4 +104,4 @@ gBarChart <- gBarChart %>% arrange(desc(GroupM))
                        categoryorder = "array",
                        categoryarray = gBarChart$grade))
  
- 
+###############
