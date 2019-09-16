@@ -8,193 +8,326 @@ library(data.table)
 library(knitr)
 library(questionr)
 library(stargazer)
-########## COLORs
-customGreen0 = "#DeF7E9"
 
-customGreen = "#71CA97"
-
-customRed = "#ff7f7f"
-
-cdc_data = read.csv('cdc_data_noNA.csv')
-cdc_data2 = read.csv('survey_answers.csv')
-
-head(cdc_data)
-head(cdc_data2)
-
-####### Survey
-############## data with Non missing weights
-options(survey.lonely.psu = "adjust")
-
-## Survey design
-des<-svydesign(ids=~1, strata=~stratum, weights=~weight, data = cdc_data2[is.na(cdc_data2$weight)==F,] )
-summary(des)
-svymean(~weapons_all, des)
-
-#### Summary stats  all weapons####################
-### proportions weighted, unweighted
-table = prop.table(wtd.table(cdc_data2$weapons_all, cdc_data2$raceeth, weights = cdc_data2$weight), margin=2)
-formattable(table)
-
-table = prop.table(wtd.table(cdc_data2$weapons_all, cdc_data2$Sex, weights = cdc_data2$weight), margin=2)
-formattable(table)
-
-
-
-### std. error or percentages
-n<-table(is.na(cdc_data2$weapons_all)==F)
-n
-
-p<-prop.table(wtd.table(cdc_data2$weapons_all, cdc_data2$raceeth, weights = cdc_data2$weight), margin=2)[2,]
-formattable(p)
-se<-sqrt((p*(1-p))/n)
-
-tble = data.frame(proportion=p, se=se)
-formattable(tble)
-
-svy = svytable(~weapons_all+raceeth, design = des)
-formattable(svy)
-
-svy = prop.table(svytable(~weapons_all+raceeth, design = des), margin = 2)
-formattable(svy)
-
-svytble = svyby(formula = ~weapons_all, by = ~raceeth, design = des, FUN = svymean)
-formattable(svytble)
-
-## EDA, Demo
+##Visualizations ########### q12
+### Import Data
+cdc_data2 = read.csv('MICE_Impute.csv')
 
 ##### Stacked bar Demo >>> weapons_all
 ### weighted 
-cdc_data2 %>%
+
+
+race = cdc_data2 %>%
   ggplot(aes(x = weapons_all, weight = weight)) +
   geom_bar(aes(fill = raceeth), position = "fill") +
   coord_flip() +
   ggtitle("Weapons Carry and Ethnicity Weighted") + 
   labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(race)
 
-cdc_data2 %>%
+
+age = cdc_data2 %>%
   ggplot(aes(x = weapons_all, weight = weight)) +
-  geom_bar(aes(fill = age), position = "fill") +
+  geom_bar(aes(fill = Age), position = "fill") +
   coord_flip() +
   ggtitle("Weapons Carry and Age Weighted") + 
   labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(age)
 
-cdc_data2 %>%
+Sex_ID= cdc_data2 %>%
   ggplot(aes(x = weapons_all, weight = weight)) +
   geom_bar(aes(fill = sex_id), position = "fill") +
   coord_flip() +
   ggtitle("Weapons Carry and Sexual Identity Weighted") + 
   labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(Sex_ID)
 
-cdc_data2 %>%
-  ggplot(aes(x = weapons_all, weight = weight)) +
-  geom_bar(aes(fill = grade), position = "fill") +
+Grade = cdc_data2 %>%
+ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
   coord_flip() +
   ggtitle("Weapons Carry and Grade Weighted") + 
   labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(Grade)
 
-cdc_data2 %>%
+Sex = cdc_data2 %>%
   ggplot(aes(x = weapons_all, weight = weight)) +
   geom_bar(aes(fill = Sex), position = "fill") +
   coord_flip() +
   ggtitle("Weapons Carry and Gender Weighted") + 
   labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(Sex)
 
-
-box = ggplot(data = cdc_data2) +
-  geom_boxplot(
-    mapping=aes(
-      x=reorder(weapons_all, indv_weight, FUN = median), weight = weight,
-      y = indv_weight
-    )) 
-box + ggtitle("Weapons Carriy and Body Weight Weighted") + 
-      labs(y="Count", x = "Number of Days Carried Weapon in past 30 Days") 
-
-#### Prop tables
   
+#### ##################################### q 14
 
-##### Stacked bar Demo
-### unweighted 
-cdc_data %>%
-  ggplot(aes(x = q13)) +
+race14 = cdc_data2 %>%
+  ggplot(aes(x = weapons_gun, weight = weight)) +
   geom_bar(aes(fill = raceeth), position = "fill") +
   coord_flip() +
-  ggtitle("Weapons and Ethnicity Uneighted") + 
-  labs(y="Count", x = "Weapons Carry")
+  ggtitle("Gun Carry and Ethnicity Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Gun in past 30 Days")
+ggplotly(race14)
 
-cdc_data %>%
-  ggplot(aes(x = q13)) +
-  geom_bar(aes(fill = age), position = "fill") +
+
+age14 = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = Age), position = "fill") +
   coord_flip() +
-  ggtitle("Weapons and Age Unweighted") + 
-  labs(y="Count", x = "Weapons Carry")
+  ggtitle("Gun Carry and Age Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Gun in past 30 Days")
+ggplotly(age14)
 
-cdc_data %>%
-  ggplot(aes(x = q13)) +
+Sex_ID14= cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
   geom_bar(aes(fill = sex_id), position = "fill") +
   coord_flip() +
-  ggtitle("Weapons and Sexual Identity Unweighted") + 
-  labs(y="Count", x = "Weapons Carry")
+  ggtitle("Gun Carry and Sexual Identity Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Gun in past 30 Days")
+ggplotly(Sex_ID14)
 
-cdc_data %>%
-  ggplot(aes(x = q13)) +
-  geom_bar(aes(fill = grade), position = "fill") +
+Grade14 = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
   coord_flip() +
-  ggtitle("Weapons and Grade Unweighted") + 
-  labs(y="Count", x = "Weapons Carry")
+  ggtitle("Gun Carry and Grade Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Gun in past 30 Days") 
+ggplotly(Grade14)
 
-cdc_data %>%
-  ggplot(aes(x = q13)) +
+Sex14 = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
   geom_bar(aes(fill = Sex), position = "fill") +
   coord_flip() +
-  ggtitle("Weapons and Gender Unweighted") + 
-  labs(y="Count", x = "Weapons Carry")
+  ggtitle("Gun Carry and Gender Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Gun in past 30 Days")
+ggplotly(Sex14)
 
-
-box2 = ggplot(data = cdc_data) +
-  geom_boxplot(
-    mapping=aes(
-      x=reorder(q13, q7, FUN = median),
-      y = q7
-    )
-  )
-box2 + ggtitle("Weapons and Body Weight Unweighted") + 
-  labs(y="Count", x = "Weapons Carry") 
-
-
-#### Stacked by other survey Qs
-
-cdc_data2 %>%
-  ggplot(aes(x = weapons_all, weight = weight )) +
-  geom_bar(aes(fill = age), position = "fill") +
+####################################### q 17
+race = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
   coord_flip() +
-  ggtitle("Weapons and Grade Unweighted") + 
-  labs(y="Proportion", x = "Weapons Carry")
+  ggtitle("Weapons Carry and Ethnicity Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(race)
 
 
-formattable(tbl)
-#######################3
-GBarChart <- data.frame(grade = names(table(groupM$grade)),
-                        GroupM = as.numeric(table(groupM$grade)),
-                        GroupF = as.numeric(table(groupF$grade)))
+age = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = Age), position = "fill") +
+  coord_flip() +
+  ggtitle("Weapons Carry and Age Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(age)
+
+Sex_ID= cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = sex_id), position = "fill") +
+  coord_flip() +
+  ggtitle("Weapons Carry and Sexual Identity Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(Sex_ID)
+
+Grade = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
+  coord_flip() +
+  ggtitle("Weapons Carry and Grade Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(Grade)
+
+Sex = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = Sex), position = "fill") +
+  coord_flip() +
+  ggtitle("Weapons Carry and Gender Weighted") + 
+  labs(y="Proportion", x = "Number of Days Carried Weapon in past 30 Days")
+ggplotly(Sex)
 
 
-plot_ly(GBarChart,
-        x = ~raceeth,
-        y = ~weapons_all,
-        type = "bar",
-        name = "Male",
-        marker = list(color = "rgba(53, 61, 219, 0.7)",
-                      line = list(color = "rgba(53, 61, 219, 0.5)",
-                                  width = 1.5))
-) %>% 
-  add_trace(y = ~GroupF,
-            name = "Female",
-            marker = list(color = "rgba(219, 53, 133, 0.7)",
-                          line = list(color = "rgba(219, 53, 133, 0.5)",
-                                      width = 1.5))
-  ) %>% 
-  layout(yaxis = list(title = "Students"),
-         barmode = "stack",
-         xaxis = list(title = "Percent",
-                      categoryorder = "array",
-                      categoryarray = gBarChart$grade))
+#### ##################################### q 14
+
+race17 = cdc_data2 %>%
+  ggplot(aes(x = phys_fight, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  ggtitle("Physical Fights and Ethnicity Weighted") + 
+  labs(y="Proportion", x = "Number of Times Participated in Fight in past 12 Months")
+ggplotly(race17)
+
+
+age17 = cdc_data2 %>%
+  ggplot(aes(x = phys_fight, weight = weight)) +
+  geom_bar(aes(fill = Age), position = "fill") +
+  coord_flip() +
+  ggtitle("Physical Fights and Age Weighted") + 
+  labs(y="Proportion", x = "Number of Times Participated in Fight in past 12 Months")
+ggplotly(age17)
+
+Sex_ID17= cdc_data2 %>%
+  ggplot(aes(x = phys_fight, weight = weight)) +
+  geom_bar(aes(fill = sex_id), position = "fill") +
+  coord_flip() +
+  ggtitle("Physical Fights and Sexual Identity Weighted") + 
+  labs(y="Proportion", x = "Number of Times Participated in Fight in past 12 Months")
+ggplotly(Sex_ID17)
+
+Grade17 = cdc_data2 %>%
+  ggplot(aes(x = phys_fight, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
+  coord_flip() +
+  ggtitle("Physical Fighting and Grade Weighted") + 
+  labs(y="Proportion", x = "Number of Times Participated in Fight in past 12 Months") 
+ggplotly(Grade17)
+
+Sex17 = cdc_data2 %>%
+  ggplot(aes(x = phys_fight, weight = weight)) +
+  geom_bar(aes(fill = Sex), position = "fill") +
+  coord_flip() +
+  ggtitle("Physical Fighting and Gender Weighted") + 
+  labs(y="Proportion", x = "Number of Times Participated in Fight in past 12 Months")
+ggplotly(Sex17)
+
+
+########################## 19
+
+race19 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating1, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  ggtitle("Dating Violence and Ethnicity Weighted") + 
+  labs(y="Proportion", x = "Experienced Dating Violence")
+ggplotly(race19)
+
+
+age19 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating1, weight = weight)) +
+  geom_bar(aes(fill = Age), position = "fill") +
+  ggtitle("Dating Violence and Age Weighted") + 
+  labs(y="Proportion", x = "Experienced Dating Violence")
+ggplotly(age19)
+
+Sex_ID19= cdc_data2 %>%
+  ggplot(aes(x = viol_dating1, weight = weight)) +
+  geom_bar(aes(fill = sex_id), position = "fill") +
+  ggtitle("Dating Violence and Sexual Identity Weighted") + 
+  labs(y="Proportion", x = "Experienced Dating Violence")
+ggplotly(Sex_ID19)
+
+Grade19 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating1, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
+  ggtitle("Dating Violence and Grade Weighted") + 
+  labs(y="Proportion", x = "Experienced Dating Violence") 
+ggplotly(Grade19)
+
+Sex19 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating1, weight = weight)) +
+  geom_bar(aes(fill = Sex), position = "fill") +
+  ggtitle("Dating Violence by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Dating Violence")
+ggplotly(Sex19)
+
+
+################################### q23
+race23 = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  ggtitle("Bullying at school and Ethnicity Weighted") + 
+  labs(y="Proportion", x = "Experienced Bullying at School")
+ggplotly(race23)
+
+
+age23 = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = Age), position = "fill") +
+  ggtitle("Bullying at school and Age Weighted") + 
+  labs(y="Proportion", x = "Experienced Bullying at School")
+ggplotly(age23)
+
+Sex_ID23= cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = sex_id), position = "fill") +
+  ggtitle("Bullying at school and Sexual Identity Weighted") + 
+  labs(y="Proportion", x = "Experienced Bullying at School")
+ggplotly(Sex_ID23)
+
+Grade23 = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
+  ggtitle("Bullying at school and Grade Weighted") + 
+  labs(y="Proportion", x = "Experienced Bullying at School") 
+ggplotly(Grade23)
+
+Sex23 = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = Sex), position = "fill") +
+  ggtitle("Bullying at school by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Bullying at school")
+ggplotly(Sex23)
+
+Sad23 = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = sad), position = "fill") +
+  ggtitle("Electronic Bullying by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(Sad23)
+
+suicide23 = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = suicide_consider), position = "fill") +
+  ggtitle("Electronic Bullying by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(suicide23)
+
+################################### Electronic bullying q 24
+
+race24 = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  ggtitle("Electronic bullying and Ethnicity Weighted") + 
+  labs(y="Proportion", x = "Experienced Bullying Electronically")
+ggplotly(race24)
+
+
+age24 = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = Age), position = "fill") +
+  ggtitle("Electronic Bullying and Age Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(age24)
+
+Sex_ID24= cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = sex_id), position = "fill") +
+  ggtitle("Electronic Bullying and Sexual Identity Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(Sex_ID24)
+
+Grade24 = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = Grade), position = "fill") +
+  ggtitle("Electronic Bullying and Grade Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying") 
+ggplotly(Grade24)
+
+Sex24 = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = Sex), position = "fill") +
+  ggtitle("Electronic Bullying by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(Sex24)
+
+Sad24 = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = sad), position = "fill") +
+  ggtitle("Electronic Bullying by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(Sad24)
+
+
+suicide24 = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = suicide_consider), position = "fill") +
+  ggtitle("Electronic Bullying by Sex Weighted") + 
+  labs(y="Proportion", x = "Experienced Electronic Bullying")
+ggplotly(suicide24)
