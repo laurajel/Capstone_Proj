@@ -88,15 +88,55 @@ shinyUI(dashboardPage(
                         box(plotlyOutput("bully_sch"), width = 6, title = HTML("Been Bullied on School Property in the Past 12 months"))
                     ))),
 
-            
             tabItem(tabName = "drug",
                     fluidRow(
+                        valueBoxOutput("heroin", width = 2),
+                        valueBoxOutput("Inhalants", width = 2),
+                        valueBoxOutput("Methamphetamines", width = 3),
+                        valueBoxOutput("Opioids", width = 2),
+                        valueBoxOutput("MDMA", width = 3)
+                    ),
+                    
+                    fluidRow(
                         box(
-                            #varSelectInput("variable", "Variable:", police_detail),
-                            #selectizeInput("views","Select Details to Explore", views),
+                            plotOutput("lf_use"),
                             width = 12,
-                            #plotlyOutput("view_by"),
-                            title = paste("Title")
+                            title = paste("Times Each Drug Used")
+                        )),
+                    fluidRow(
+                        box(
+                            plotOutput("gen_drug_use"),
+                            width = 12,
+                            title = paste("Drug Used by Gender")
+                        )),
+
+                    fluidRow(
+                        box(
+                            plotOutput("drug_gen"),
+                            width = 6,
+                            title = paste("Use by Ethnicity")
+                        ),
+                        box(
+                            plotOutput("drug_grade"),
+                            width = 6,
+                            title = paste("Use by Grade ")
+                        )),
+                    fluidRow(
+                        box(
+                            plotOutput("drug_age"),
+                            width = 6,
+                            title = paste("Use by Age")
+                        ),
+                        box(
+                            plotOutput("drug_eth"),
+                            width = 6,
+                            title = paste("Use by Gender")
+                        )),
+                    fluidRow(
+                        box(
+                            plotOutput("drug_wt"),
+                            width = 12,
+                            title = paste("Use by Weight")
                         )))
-        )))
+            )))
 
