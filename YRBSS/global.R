@@ -14,7 +14,7 @@ library(dplyr)
 demo <- read.csv("../EDA_and_Preproc/demographic.csv")
 answers <- read.csv("../DATA/weighted_2017.csv")
 
-
+cdc_data2 = read.csv("../DATA/MICE_Impute.csv")
 
 total <- nrow(demo)
 
@@ -115,5 +115,31 @@ age_gender_plot <- age_gender %>%
          yaxis = list(title = ""))
 
 
+###### PLOTS violence
+### all weapons
+weapons_all = cdc_data2 %>%
+  ggplot(aes(x = weapons_all, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Number of Days Carried Weapon")
+
+wep_all <- ggplotly(weapons_all)
+
+### guns
+weapons_guns = cdc_data2 %>%
+  ggplot(aes(x = weapons_gun, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Number of Days Carried Gun")
+
+wep_guns <- ggplotly(weapons_guns)
+
+#### Dating violence 
+
+dating_viol = cdc_data2 %>%
+  ggplot(aes(x = viol_dating1, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  labs(y="Proportion", x = "Experienced Dating Violence")
+ggplotly(race19)
 
 

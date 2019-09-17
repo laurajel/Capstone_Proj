@@ -7,6 +7,7 @@ shinyUI(dashboardPage(
             menuItem("Research Summary", tabName = "rs", icon = icon("book-reader")),
             menuItem("Survey Demographics", tabName = "demo", icon = icon("users")),
             menuItem("Youth Violence", tabName = "vio", icon = icon("ambulance")),
+            menuItem("Youth Dating Violence", tabName = "dv", icon= icon("heart")),
             menuItem("Youth Bullying", tabName = "bully" , icon = icon("sad-tear")),
             menuItem("Youth Drug Use", tabName = "drug", icon = icon("pills"))
         )),
@@ -62,8 +63,8 @@ shinyUI(dashboardPage(
             tabItem(tabName = "vio",
                     
                     fluidRow(
-                        #box(plotlyOutput("weapons_carry"), width = 6, title = HTML("Weapon Carry")),
-                        #box(plotlyOutput("gun_carry"), width = 6, title = HTML("Gun Carry"))
+                        box(plotlyOutput("weapons_all"), width = 6, title = HTML("Carried any Weapon in the Past 30 Days")),
+                        box(plotlyOutput("weapons_guns"), width = 6, title = HTML("Carried a Gun in the Past 30 Days"))
                         ),
                     fluidRow(
                         #box(plotlyOutput("dating_viol"), width = 6, title = HTML 
@@ -83,6 +84,13 @@ shinyUI(dashboardPage(
                             title = "Title"
                         ))
             ),
+            
+            tabItem(tabName = "dv",
+                    
+                    fluidRow(
+                        box(),
+                        box()
+                    )),
 
             tabItem(tabName =  "bully",
                     fluidRow(

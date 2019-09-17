@@ -25,7 +25,10 @@ shinyServer(function(input, output){
     output$gen_age <- renderPlotly({age_gender_plot})
     output$kde_h <- renderPlotly({kde_height})
     output$kde_w <- renderPlotly({kde_weight})
+    
+    
+    output$weapons_all <- renderPlotly({wep_all})
+    output$weapons_guns <- renderPlotly({wep_guns})
 
 })
-
 
