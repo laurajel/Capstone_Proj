@@ -2,19 +2,66 @@ library(dplyr)
 library(tidyr)
 
 
-cdc_data = read.csv('cdc_data_noNA.csv')
+cdc_data = read.csv('XXHq_2017.csv')
 
 
 head(cdc_data)
 
 
 ## removing index variable X from python clean
-cdc_data2 = select(cdc_data, -1, -3)
-head(cdc_data)
+cdc_data2 = dplyr::select(cdc_data, -1, -3, -4,-5, -6, -11)
+head(cdc_data2)
+###################### raceeth
 
-cdc_data2 = cdc_data
+cdc_data2 = cdc_data2 %>% 
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 1.0, "American Indian/Alaskan Native")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 2.0, "Asian")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 3.0, "African American")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 4.0, "Native Hawaiian/Pac Isld")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 5.0, "White")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 6.0, "Hispanic/Latino")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 7.0, "Multiple Hisp/Lat")) %>%
+  mutate(`raceeth` = replace(`raceeth`, `raceeth` == 8.0, "Multiple non-Hisp/Lat"))
 
-### Imputing columns with survey values
+### Imputing columns with survey values - q1
+colnames(cdc_data2)[colnames(cdc_data2) == "q1"] = "Age"
+head(cdc_data2)
+cdc_data2 = cdc_data2 %>% 
+  mutate(`Age` = replace(`Age`, `Age` == 1.0, "12 or younger")) %>%
+  mutate(`Age` = replace(`Age`, `Age` == 2.0, "13 years old")) %>%
+  mutate(`Age` = replace(`Age`, `Age` == 3.0, "14 years old")) %>%
+  mutate(`Age` = replace(`Age`, `Age` == 4.0, "15 years old")) %>%
+  mutate(`Age` = replace(`Age`, `Age` == 5.0, "16 years old")) %>%
+  mutate(`Age` = replace(`Age`, `Age` == 6.0, "17 years old")) %>%
+  mutate(`Age` = replace(`Age`, `Age` == 7.0, "18 or older")) 
+
+cdc_data2$`Age` = as.factor(cdc_data2$`Age`)
+head(cdc_data2)
+############################# q2
+colnames(cdc_data2)[colnames(cdc_data2) == "q2"] = "Sex"
+head(cdc_data2)
+cdc_data2 = cdc_data2 %>% 
+  mutate(`Sex` = replace(`Sex`, `Sex` == 1.0, "F")) %>%
+  mutate(`Sex` = replace(`Sex`, `Sex` == 2.0, "M")) 
+
+cdc_data2$`Sex` = as.factor(cdc_data2$`Sex`)
+head(cdc_data2)
+############################### q3
+
+colnames(cdc_data2)[colnames(cdc_data2) == "q3"] = "Grade"
+head(cdc_data2)
+cdc_data2 = cdc_data2 %>% 
+  mutate(`Grade` = replace(`Grade`, `Grade` == 1.0, "9th")) %>%
+  mutate(`Grade` = replace(`Grade`, `Grade` == 2.0, "10th")) %>%
+  mutate(`Grade` = replace(`Grade`, `Grade` == 3.0, "11th")) %>%
+  mutate(`Grade` = replace(`Grade`, `Grade` == 4.0, "12th")) %>%
+  mutate(`Grade` = replace(`Grade`, `Grade` == 5.0, "ungraded or other")) 
+
+
+cdc_data2$`Grade` = as.factor(cdc_data2$`Grade`)
+head(cdc_data2)
+
+################################## q4
 
 # Rename Column - q4
 colnames(cdc_data2)[colnames(cdc_data2) == "q4"] = "Hispanic/Latino"
@@ -834,6 +881,21 @@ head(cdc_data2)
 colnames(cdc_data2)[colnames(cdc_data2) == "q69"] = "weight_control"
 head(cdc_data2)
 
+
+############## q 67 
+cdc_data2 = cdc_data2 %>% 
+  mutate(q67 = replace(q67, q67 == 1.0, "Heterosexual")) %>%
+  mutate(q67 = replace(q67, q67 == 2.0, "Gay or Lesbian")) %>%
+  mutate(q67 = replace(q67, q67 == 3.0, "Bisexual")) %>%
+  mutate(q67 = replace(q67, q67 == 4.0, "Not sure"))
+cdc_data2$q67 = as.factor(cdc_data2$q67)
+head(cdc_data2)
+# Rename Column - q67
+colnames(cdc_data2)[colnames(cdc_data2) == "q67"] = "sex_id"
+head(cdc_data2)
+
+
+
 ## Impute q70
 cdc_data2 = cdc_data2 %>%
   mutate(q70 = replace(q70, q70 == 1.0, "did not drink fruit juice")) %>%
@@ -1239,4 +1301,4 @@ head(cdc_data2)
 
 ##############
 
-write.csv(cdc_data2, "survey_answers.csv")
+write.csv(cdc_data2, "MICE_Impute.csv")

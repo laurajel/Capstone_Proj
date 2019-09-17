@@ -49,6 +49,17 @@ shinyServer(function(input, output){
         valueBox(value = formatC( opi_risk, format = "d", digits = 5),subtitle = "Students Using Opioids (Illicit)",icon = icon("pillsf"),color = "orange")
         })
     output$gen_drug_use <- renderPlot({gen_drug_use})
+    output$weapons_all <- renderPlotly({wep_all})
+    output$weapons_guns <- renderPlotly({wep_guns})
+    output$weapon_sch <- renderPlotly({wep_sch})
+    output$weapons_inj <- renderPlotly({wep_inj})
+    
+    output$dv_rape <- renderPlotly({dv_1})
+    output$dv_other <- renderPlotly({dv_2})
+    output$dv_dating1 <- renderPlotly({dv_3})
+    output$dv_dating2 <- renderPlotly({dv_4})
+    
+    output$bully_elec <- renderPlotly({bully_elec})
+    output$bully_sch <- renderPlotly({bully_sch})
 })
-
 
