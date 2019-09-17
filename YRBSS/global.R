@@ -134,12 +134,74 @@ weapons_guns = cdc_data2 %>%
 
 wep_guns <- ggplotly(weapons_guns)
 
-#### Dating violence 
+#### Weapon School
+weapons_sch = cdc_data2 %>%
+  ggplot(aes(x = weapons_toschool, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Number of Days Carried Weapon to School")
 
+wep_sch <- ggplotly(weapons_sch)
+
+#### injured or threatened
+weapons_inj = cdc_data2 %>%
+  ggplot(aes(x = inj_weapon, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Number of Days Injured by Weapon at School")
+
+wep_inj <- ggplotly(weapons_inj)
+
+#### Dating violence 
+#### rape
 dating_viol = cdc_data2 %>%
   ggplot(aes(x = viol_dating1, weight = weight)) +
   geom_bar(aes(fill = raceeth), position = "fill") +
-  labs(y="Proportion", x = "Experienced Dating Violence")
-ggplotly(race19)
+  labs(y="Proportion", x = "Forced to have Intercorse")
 
+dv_1 = ggplotly(dating_viol)
+
+#### forced sexual things
+dating_viol2 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating2, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Forced to do Other Sexual Things")
+
+dv_2 = ggplotly(dating_viol2)
+
+#### forced to do sexual things (dating)
+dating_viol3 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating3, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Forced to do Other Sexual Things")
+
+dv_3 = ggplotly(dating_viol3)
+
+#### injured by someone you were dating
+dating_viol4 = cdc_data2 %>%
+  ggplot(aes(x = viol_dating4, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  coord_flip() +
+  labs(y="Proportion", x = "Forced to do Other Sexual Things")
+
+dv_4 = ggplotly(dating_viol4)
+
+
+####### bullying 
+bullying_elec = cdc_data2 %>%
+  ggplot(aes(x = bullied_elec, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  labs(y="Proportion", x = " Bullied ")
+
+bully_elec = ggplotly(bullying_elec)
+
+#### bully school
+bullying_sch = cdc_data2 %>%
+  ggplot(aes(x = bullied_sch, weight = weight)) +
+  geom_bar(aes(fill = raceeth), position = "fill") +
+  labs(y="Proportion", x = " Bullied")
+
+bully_sch = ggplotly(bullying_sch)
 
