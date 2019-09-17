@@ -13,7 +13,8 @@ shinyUI(dashboardPage(
         )),
     dashboardBody(
         tabItems(
-            tabItem(tabName = "rs",
+            tabItem(
+                tabName = "rs",
                     fluidRow(
                         box(
                             tags$h3(strong("YBRSS Summary")),
@@ -40,13 +41,13 @@ shinyUI(dashboardPage(
                                     to the total sample size and weighted proportions of students in each grade matched population projections for each survey year.')),
                             tags$h5(strong('Purpose of This Shiny App'),
                                     p('The purpose of this Shiny app is to offer a snapshot of important features of the YRBS that relate to violence, bullying, drug use, and 
-                                      suicide through visualization and also offer insight to the distribution of these important features throughout the U.S. youth population'))
-)),
+                                      suicide through visualization and also offer insight to the distribution of these important features throughout the U.S. youth population')))),
                              br(), tags$header("Key Findings"), br(), tags$header("Violence"), br()
                             ,tags$header("Drug Use"),br(),tags$header("Suicide Risk"))
                     )),
-            tabItem(tabName = "demo",
-                    fluidRow(
+        tabItem(
+            tabName = "demo",
+                fluidRow(
                         valueBoxOutput("students", width = 3),
                         valueBoxOutput("girls",width = 2),
                         valueBoxOutput("boys",width = 2),
@@ -59,9 +60,8 @@ shinyUI(dashboardPage(
                         box(plotlyOutput("kde_h"), width = 6,title = HTML("Survey Height")),
                         box(plotlyOutput("kde_w"),width = 6,title = HTML("Survey Weight"))
                         )),
-                        
-            tabItem(tabName = "vio",
-                    
+            tabItem(
+                tabName = "vio",
                     fluidRow(
                         box(plotlyOutput("weapons_all"), width = 6, title = HTML("Carried any Weapon in the Past 30 Days")),
                         box(plotlyOutput("weapons_guns"), width = 6, title = HTML("Carried a Gun in the Past 12 Months"))
@@ -71,8 +71,8 @@ shinyUI(dashboardPage(
                         box(plotlyOutput("weapons_inj"), width = 6, title = HTML("Injured with any Weapon on School Property"))
                         )),
             
-            tabItem(tabName = "dv",
-                    
+            tabItem(
+                tabName = "dv",
                     fluidRow(
                         box(plotlyOutput("dv_rape"), width = 6, title = HTML("Ever Been Forced to have Intercorse")),
                         box(plotlyOutput("dv_other"), width = 6, title = HTML("Forced to do Other Sexual Things by Anyone, Past 12 months"))
@@ -82,13 +82,15 @@ shinyUI(dashboardPage(
                         box(plotlyOutput("dv_dating2"), width = 6, title = HTML("Injured by Someone You were Dating"))
                     )),
 
-            tabItem(tabName =  "bully",
+            tabItem(
+                tabName =  "bully",
                     fluidRow(
                         box(plotlyOutput("bully_elec"), width = 6, title = HTML("Been Electronically Bullied in the Past 12 months")),
                         box(plotlyOutput("bully_sch"), width = 6, title = HTML("Been Bullied on School Property in the Past 12 months"))
-                    ))),
+                    )),
 
-            tabItem(tabName = "drug",
+            tabItem(
+                tabName = "drug",
                     fluidRow(
                         valueBoxOutput("heroin", width = 2),
                         valueBoxOutput("Inhalants", width = 2),
@@ -98,45 +100,21 @@ shinyUI(dashboardPage(
                     ),
                     
                     fluidRow(
-                        box(
-                            plotOutput("lf_use"),
-                            width = 12,
-                            title = paste("Times Each Drug Used")
-                        )),
-                    fluidRow(
-                        box(
-                            plotOutput("gen_drug_use"),
-                            width = 12,
-                            title = paste("Drug Used by Gender")
-                        )),
-
-                    fluidRow(
-                        box(
-                            plotOutput("drug_gen"),
-                            width = 6,
-                            title = paste("Use by Ethnicity")
+                        box(plotOutput("lf_use"),width = 12,title = paste("Times Each Drug Used"))
                         ),
-                        box(
-                            plotOutput("drug_grade"),
-                            width = 6,
-                            title = paste("Use by Grade ")
-                        )),
                     fluidRow(
-                        box(
-                            plotOutput("drug_age"),
-                            width = 6,
-                            title = paste("Use by Age")
+                        box(plotOutput("gen_drug_use"),width = 12,title = paste("Drug Used by Gender"))
                         ),
-                        box(
-                            plotOutput("drug_eth"),
-                            width = 6,
-                            title = paste("Use by Gender")
-                        )),
                     fluidRow(
-                        box(
-                            plotOutput("drug_wt"),
-                            width = 12,
-                            title = paste("Use by Weight")
-                        )))
-            )))
+                        box(plotOutput("drug_gen"),width = 6,title = paste("Use by Ethnicity")),
+                        box(plotOutput("drug_grade"),width = 6,title = paste("Use by Grade "))
+                        ),
+                    fluidRow(
+                        box(plotOutput("drug_age"),width = 6,title = paste("Use by Age")),
+                        box(plotOutput("drug_eth"),width = 6,title = paste("Use by Gender"))
+                        ),
+                    fluidRow(
+                        box(plotOutput("drug_wt"),width = 12,title = paste("Use by Weight")))
+                )
+        ))))
 
