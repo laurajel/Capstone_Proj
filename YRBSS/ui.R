@@ -4,18 +4,18 @@ shinyUI(dashboardPage(
     dashboardHeader(title = "YRBSS Data"),
     dashboardSidebar(
         sidebarMenu(
-            menuItem("Research Summary", tabName = "rs", icon = icon("book-reader")),
-            menuItem("Survey Demographics", tabName = "demo", icon = icon("users")),
-            menuItem("Youth Violence", tabName = "vio", icon = icon("ambulance")),
+             menuItem("Research Summary", tabName = "rs", icon = icon("book-reader")),
+             menuItem("Survey Demographics", tabName = "demo", icon = icon("users")),
+             menuItem("Youth Violence", tabName = "vio", icon = icon("ambulance")),
             menuItem("Youth Drug Use", tabName = "drug", icon = icon("pills"))
         )),
     dashboardBody(
         tabItems(
             tabItem(tabName = "rs",
                     fluidRow(
-                        box(
-                            tags$header("YBRSS Summary"), br(), tags$header("Key Findings"), br(), tags$header("Violence"), br()
-                            ,tags$header("Drug Use"),br(),tags$header("Suicide Risk"))
+                        box(tags$header("YBRSS Summary"), br(), tags$header("Key Findings"),
+                        br(), tags$header("Violence"), br(),tags$header("Drug Use"),br(),
+                        tags$header("Suicide Risk"))
                     )),
             tabItem(tabName = "demo",
                     fluidRow(
@@ -60,12 +60,58 @@ shinyUI(dashboardPage(
             ),
             tabItem(tabName = "drug",
                     fluidRow(
+                        valueBoxOutput("heroin", width = 2),
+                        valueBoxOutput("Inhalants", width = 2),
+                        valueBoxOutput("Methamphetamines", width = 3),
+                        valueBoxOutput("Opioids", width = 2),
+                        valueBoxOutput("MDMA", width = 3)
+                    ),
+                    
+                    fluidRow(
                         box(
-                            #varSelectInput("variable", "Variable:", police_detail),
-                            #selectizeInput("views","Select Details to Explore", views),
+                            plotOutput("lf_use"),
                             width = 12,
-                            #plotlyOutput("view_by"),
-                            title = paste("Title")
-                        )))
+                            title = paste("Times Each Drug Used")
+                        )),
+                    fluidRow(
+                        box(
+                            plotOutput("gen_drug_use"),
+                            width = 12,
+                            title = paste("Drug Used by Gender")
+                        )),
+
+                    fluidRow(
+                        box(
+                            plotOutput("drug_gen"),
+                            width = 6,
+                            title = paste("Use by Ethnicity")
+                        ),
+                        box(
+                            plotOutput("drug_grade"),
+                            width = 6,
+                            title = paste("Use by Grade ")
+                        )),
+                    fluidRow(
+                        box(
+                            plotOutput("drug_age"),
+                            width = 6,
+                            title = paste("Use by Age")
+                        ),
+                        box(
+                            plotOutput("drug_eth"),
+                            width = 6,
+                            title = paste("Use by Gender")
+                        )),
+                    fluidRow(
+                        box(
+                            plotOutput("drug_wt"),
+                            width = 12,
+                            title = paste("Use by Weight")
+                        )
+                        )
+                    
+                    
+                    
+                        )
         ))))
 
