@@ -114,12 +114,38 @@ shinyServer(function(input, output){
             ggplot(aes(x = bullied_elec, weight = weight)) +
             geom_bar(aes(fill = raceeth), position = "fill") +
             labs(y="Proportion", x = " Bullied ")})
-    
+         
          output$bully_sch <- renderPlotly({cdc_data2 %>%
-            ggplot(aes(x = bullied_sch, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
-            labs(y="Proportion", x = " Bullied")})
-   
-    
+                 ggplot(aes(x = bullied_sch, weight = weight)) +
+                 geom_bar(aes(fill = raceeth), position = "fill") +
+                 labs(y="Proportion", x = " Bullied")})
+         
+         
+
+    output$times_used <- renderPlot({times_used})
+    output$lf_use <- renderPlot({lf_use_plot})
+    output$drug_wt <- renderPlot({drug_wt})
+    output$drug_eth <- renderPlot({drug_eth})
+    output$drug_grade <- renderPlot({drug_grade})
+    output$drug_age <- renderPlot({drug_age})
+    output$drug_gen <- renderPlot({drug_gen})
+
+    output$heroin <- renderValueBox({
+        valueBox(value = formatC( hero_risk, format = "d", digits = 5),subtitle = "Students Using Heroin (Lifetime)",icon = icon("syringe"),color = "light-blue")
+        })
+    output$Inhalants <- renderValueBox({
+        valueBox(value = formatC( inha_risk, format = "d", digits = 5),subtitle = "Students Using Inhalants (Lifetime)",icon = icon("spray-can"),color = "maroon")
+         })
+    output$MDMA <- renderValueBox({
+        valueBox(value = formatC( mdma_risk, format = "d", digits = 5),subtitle = "Students Using MDMA (Lifetime)",icon = icon("tablets"),color = "blue")
+        })
+    output$Methamphetamines <- renderValueBox({
+        valueBox(value = formatC( meth_risk, format = "d", digits = 5),subtitle = "Students Using Methamphetamines (Lifetime)",icon = icon("bong"),color = "olive")
+        })
+    output$Opioids<- renderValueBox({
+        valueBox(value = formatC( opi_risk, format = "d", digits = 5),subtitle = "Students Using Opioids (Illicit)",icon = icon("pillsf"),color = "orange")
+        })
+    output$gen_drug_use <- renderPlot({gen_drug_use})
+
 })
 
