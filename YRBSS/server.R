@@ -111,16 +111,16 @@ shinyServer(function(input, output){
     })
  ### bully  
          output$Electronic <- renderValueBox({
-             valueBox(value = formatC( elec_risk, format = "d", digits = 5),subtitle = "Students Electronically Bullied",icon = icon("syringe"),color = "light-blue")
+             valueBox(value = formatC(elec_risk, format = "d", digits = 5),subtitle = "Students Electronically Bullied",icon = icon("syringe"),color = "light-blue")
          })
          output$School <- renderValueBox({
-             valueBox(value = formatC( sch_risk, format = "d", digits = 5),subtitle = "Students Bullied at School",icon = icon("spray-can"),color = "maroon")
+             valueBox(value = formatC(percent(2665/14606), format = "d", digits = 5),subtitle = "Students Bullied at School",icon = icon("spray-can"),color = "maroon")
          })
          output$Elec_resp <- renderValueBox({
-             valueBox(value = formatC( elec_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Electronicly Bullied",icon = icon("syringe"),color = "light-blue")
+             valueBox(value = formatC(elec_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Electronicly Bullied",icon = icon("syringe"),color = "light-blue")
          })
          output$School_resp <- renderValueBox({
-             valueBox(value = formatC( sch_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Bullied at School",icon = icon("spray-can"),color = "maroon")
+             valueBox(value = formatC(sch_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Bullied at School",icon = icon("spray-can"),color = "maroon")
          })
          
          

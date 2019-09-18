@@ -304,15 +304,8 @@ featureList <-colnames(cdc_data2)
 
 
 ##### Bully 
-sch_risk=  (2665/14606)
-sch_risk = percent(sch_risk)
-
-sch_resp = (14606/14765)
-sch_resp = percent(sch_resp)
-
-elec_risk = (2113/14595)
-elec_risk = percent(elec_risk)
-
-elec_resp = (14595/14765)
-elec_resp = percent(elec_resp)
+#sch_risk = percent(2665/14606)
+sch_resp = percent(14606/14765)
+elec_risk = percent(2113/14595)
+elec_resp = percent(14595/14765)
 
