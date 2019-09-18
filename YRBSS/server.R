@@ -30,16 +30,16 @@ shinyServer(function(input, output){
     
 ##### weapons
     output$All <- renderValueBox({
-      valueBox(value = formatC(wep_all, format = "d", digits = 5),subtitle = "Students Reported Carrying Any Weapon (Past 30 Days)",icon = icon("exclamation-triangle"),color = "maroon")
+      valueBox(value = formatC(wep_all, format = "d", digits = 5),subtitle = "Responding Students Reported Carrying Any Weapon (Past 30 Days)",icon = icon("exclamation-triangle"),color = "maroon")
     })
     output$Gun <- renderValueBox({
-      valueBox(value = formatC(wep_gun, format = "d", digits = 5),subtitle = "Students Reported Carrying a Gun (Past 12 Months)",icon = icon("exclamation"),color = "orange")
+      valueBox(value = formatC(wep_gun, format = "d", digits = 5),subtitle = "Responding Students Reported Carrying a Gun (Past 12 Months)",icon = icon("exclamation"),color = "orange")
     })
     output$To_sch <- renderValueBox({
-      valueBox(value = formatC(wep_tosch, format = "d", digits = 5),subtitle = "Students Reported Carrying Any Weapon to School (Past 30 Days)",icon = icon("school"),color = "light-blue")
+      valueBox(value = formatC(wep_tosch, format = "d", digits = 5),subtitle = "Responding Students Reported Carrying Any Weapon to School (Past 30 Days)",icon = icon("school"),color = "light-blue")
     })
     output$Injured <- renderValueBox({
-      valueBox(value = formatC(wep_inj, format = "d", digits = 5),subtitle = "Students Reported being Injured by Any Weapon at School (Past 12 Months)",icon = icon("plus-square"),color = "green")
+      valueBox(value = formatC(wep_inj, format = "d", digits = 5),subtitle = "Responding Students Reported being Injured by Any Weapon at School (Past 12 Months)",icon = icon("plus-square"),color = "green")
     })
     
          output$weapons_all <- renderPlotly({ 
@@ -71,16 +71,16 @@ shinyServer(function(input, output){
     
  ### dating viol   
         output$Rape <- renderValueBox({
-          valueBox(value = formatC(rape, format = "d", digits = 5),subtitle = "Students Reported Being Raped (Lifetime)",icon = icon("heart"),color = "maroon")
+          valueBox(value = formatC(rape, format = "d", digits = 5),subtitle = "Responding Students Reported Being Raped (Lifetime)",icon = icon("heart"),color = "maroon")
         })
         output$Other <- renderValueBox({
-          valueBox(value = formatC(other, format = "d", digits = 5),subtitle = "Students Forced into Other Sexual Things (Past 12 Months)",icon = icon("heart"),color = "orange")
+          valueBox(value = formatC(other, format = "d", digits = 5),subtitle = "Responding Students Forced into Other Sexual Things (Past 12 Months)",icon = icon("heart"),color = "orange")
         })
         output$Dating1 <- renderValueBox({
-          valueBox(value = formatC(dating1, format = "d", digits = 5),subtitle = "Students Forced by Someone Dating (Past 12 Months)",icon = icon("theater-masks"),color = "light-blue")
+          valueBox(value = formatC(dating1, format = "d", digits = 5),subtitle = "Responding Students Forced by Someone Dating (Past 12 Months)",icon = icon("theater-masks"),color = "light-blue")
         })
         output$Dating2 <- renderValueBox({
-          valueBox(value = formatC(dating2, format = "d", digits = 5),subtitle = "Students Injured by Someone Dating (Past 12 Months)",icon = icon("theater-masks"),color = "green")
+          valueBox(value = formatC(dating2, format = "d", digits = 5),subtitle = "Responding Students Injured by Someone Dating (Past 12 Months)",icon = icon("theater-masks"),color = "green")
         })
         output$dv_rape <-
             renderPlotly({
@@ -110,10 +110,10 @@ shinyServer(function(input, output){
     })
  ### bully  
          output$Electronic <- renderValueBox({
-             valueBox(value = formatC(elec_risk, format = "d", digits = 5),subtitle = "Students Electronically Bullied (Past 12 Months)",icon = icon("mobile-alt"),color = "light-blue")
+             valueBox(value = formatC(elec_risk, format = "d", digits = 5),subtitle = "Responding Students Electronically Bullied (Past 12 Months)",icon = icon("mobile-alt"),color = "light-blue")
          })
          output$School <- renderValueBox({
-             valueBox(value = formatC(sch_risk, format = "d", digits = 5),subtitle = "Students Bullied at School (Past 12 Months)",icon = icon("school"),color = "light-blue")
+             valueBox(value = formatC(sch_risk, format = "d", digits = 5),subtitle = "Responding Students Bullied at School (Past 12 Months)",icon = icon("school"),color = "light-blue")
          })
          output$Elec_resp <- renderValueBox({
              valueBox(value = formatC(elec_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Electronicly Bullied",icon = icon("mobile-alt"),color = "maroon")
