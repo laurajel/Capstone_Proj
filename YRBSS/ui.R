@@ -63,30 +63,57 @@ shinyUI(dashboardPage(
             tabItem(tabName = "vio",
                     
                     fluidRow(
-                        box(plotlyOutput("weapons_all"), width = 6, title = HTML("Carried any Weapon in the Past 30 Days")),
-                        box(plotlyOutput("weapons_guns"), width = 6, title = HTML("Carried a Gun in the Past 12 Months"))
-                        ),
+                        box(plotlyOutput("weapons_all"), width = 6, title = HTML("Carried any Weapon in the Past 30 Days"),
+                            selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                         choices = featureList, selected = "raceeth")),
+                        
+                        box(plotlyOutput("weapons_guns"), width = 6, title = HTML("Carried a Gun in the Past 12 Months"),
+                            selectInput(inputId = "featureinput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth"))),
+                        
                     fluidRow(
-                        box(plotlyOutput("weapon_sch"), width = 6, title = HTML("Carried any Weapon to School in the Past 30 Days")), 
-                        box(plotlyOutput("weapons_inj"), width = 6, title = HTML("Injured with any Weapon on School Property"))
-                        )),
+                        box(plotlyOutput("weapon_sch"), width = 6, title = HTML("Carried any Weapon to School in the Past 30 Days"),
+                            selectInput(inputId = "featureIput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth")), 
+                        
+                        box(plotlyOutput("weapons_inj"), width = 6, title = HTML("Injured with any Weapon on School Property"),
+                            selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth")))
+                        ),
             
             tabItem(tabName = "dv",
                     
                     fluidRow(
-                        box(plotlyOutput("dv_rape"), width = 6, title = HTML("Ever Been Forced to have Intercorse")),
-                        box(plotlyOutput("dv_other"), width = 6, title = HTML("Forced to do Other Sexual Things by Anyone, Past 12 months"))
-                       ),
+                        box(plotlyOutput("dv_rape"), width = 7, title = HTML("Ever Been Forced to have Intercorse")),
+                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                       choices = featureList, selected = "raceeth"
+                        ), width = 4)),
                     fluidRow(
-                        box(plotlyOutput("dv_dating1"), width = 6, title = HTML("Forced to do Other Sexual Things by Someone Dating, Past 12 months")),
-                        box(plotlyOutput("dv_dating2"), width = 6, title = HTML("Injured by Someone You were Dating"))
-                    )),
+                        box(plotlyOutput("dv_other"), width = 7, title = HTML("Forced to do Other Sexual Things by Anyone, Past 12 months")),
+                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth"
+                        ), width = 4)),
+                     
+                    fluidRow(
+                        box(plotlyOutput("dv_dating1"), width = 7, title = HTML("Forced to do Other Sexual Things by Someone Dating, Past 12 months")),
+                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth"
+                        ), width = 4)),
+                    fluidRow(
+                        box(plotlyOutput("dv_dating2"), width = 7, title = HTML("Injured by Someone You were Dating")),
+                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth"
+                        ), width = 4))),
 
             tabItem(tabName =  "bully",
                     fluidRow(
-                        box(plotlyOutput("bully_elec"), width = 6, title = HTML("Been Electronically Bullied in the Past 12 months")),
-                        box(plotlyOutput("bully_sch"), width = 6, title = HTML("Been Bullied on School Property in the Past 12 months"))
-                    ))),
+                        box(plotlyOutput("bully_elec"), width = 6, title = HTML("Been Electronically Bullied in the Past 12 months"),
+                            selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth")),
+                        box(plotlyOutput("bully_sch"), width = 6, title = HTML("Been Bullied on School Property in the Past 12 months"),
+                            selectInput(inputId = "featureInput2",label = "Select a Feature:",
+                                        choices = featureList, selected = "raceeth")))
+                    ),
 
             
             tabItem(tabName = "drug",
@@ -98,5 +125,5 @@ shinyUI(dashboardPage(
                             #plotlyOutput("view_by"),
                             title = paste("Title")
                         )))
-        )))
+        ))))
 
