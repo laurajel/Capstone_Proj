@@ -108,17 +108,20 @@ shinyUI(dashboardPage(
             tabItem(
                 tabName =  "bully",
                     fluidRow(
+                             valueBoxOutput("School", width = 2),
+                             valueBoxOutput("School_resp", width = 2),
+                             valueBoxOutput("Electronic", width = 2),
+                             valueBoxOutput("Elec_resp", width = 2)),
+                
+                    fluidRow(
 
                         box(plotlyOutput("bully_elec"), width = 6, title = HTML("Been Electronically Bullied in the Past 12 months"),
                             selectInput(inputId = "featureInput2",label = "Select a Feature:",
                                         choices = featureList, selected = "raceeth")),
                         box(plotlyOutput("bully_sch"), width = 6, title = HTML("Been Bullied on School Property in the Past 12 months"),
                             selectInput(inputId = "featureInput2",label = "Select a Feature:",
-                                        choices = featureList, selected = "raceeth")))
-),
-                        box(plotlyOutput("bully_elec"), width = 6, title = HTML("Been Electronically Bullied in the Past 12 months")),
-                        box(plotlyOutput("bully_sch"), width = 6, title = HTML("Been Bullied on School Property in the Past 12 months"))
-                    )),
+                                        choices = featureList, selected = "raceeth")))),
+                    
 
 
             tabItem(
@@ -136,7 +139,7 @@ shinyUI(dashboardPage(
                         valueBoxOutput("Inhalants", width = 2),
                         valueBoxOutput("Methamphetamines", width = 3),
                         valueBoxOutput("Opioids", width = 2),
-                        valueBoxOutput("MDMA", width = 3),
+                        valueBoxOutput("MDMA", width = 3)),
                     
                     fluidRow(
                         box(plotOutput("lf_use"),width = 12,title = paste("Times Each Drug Used"))
@@ -155,5 +158,5 @@ shinyUI(dashboardPage(
                     fluidRow(
                         box(plotOutput("drug_wt"),width = 12,title = paste("Use by Weight")))
                 )
-        )))
+        ))))
 

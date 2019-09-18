@@ -82,7 +82,7 @@ age_gender_plot <- age_gender %>%
          yaxis = list(title = ""))
 #-----------------------------DRUG USE---------------------------------#
 
-druguse <- read.csv("/Users/ktread/Capstone_Proj/DATA/XXHq_2017.csv")
+druguse <- read.csv("../DATA/XXHq_2017.csv")
 
 ### ADD QUESTION 49
 
@@ -302,4 +302,17 @@ cdc_data2 = dplyr::select(cdc_data2, -1, -100, -101, -103, -104)
 
 featureList <-colnames(cdc_data2)
 
+
+##### Bully 
+sch_risk=  (2665/14606)
+sch_risk = percent(sch_risk)
+
+sch_resp = (14606/14765)
+sch_resp = percent(sch_resp)
+
+elec_risk = (2113/14595)
+elec_risk = percent(elec_risk)
+
+elec_resp = (14595/14765)
+elec_resp = percent(elec_resp)
 

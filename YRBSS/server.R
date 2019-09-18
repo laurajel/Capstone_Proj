@@ -29,22 +29,23 @@ shinyServer(function(input, output){
     output$kde_w <- renderPlotly({kde_weight})
     
     
-    observe(input$featureInput2, {
-        plot.df <- data.frame(cdc_data2[,input$featureInput2],
-                              Feature1 = cdc_data2$weapons_all,
-                              Feature2 = cdc_data2$weapons_gun,
-                              Feature3 = cdc_data2$weapons_toschool,
-                              Feature4 = cdc_data2$inj_weapon,
-                              Feature5 = cdc_data2$viol_dating1,
-                              Feature6 = cdc_data2$viol_dating2,
-                              Feature7 = cdc_data2$viol_dating3,
-                              Feature8 = cdc_data2$viol_dating4,
-                              Feature9 = cdc_data2$bullied_elec,
-                              Feature10 = cdc_data2$bullied_sch,
-                              weight = cdc_data2$weight)
+    #observe(input$featureInput2, {
+     #   plot.df <- data.frame(cdc_data2[,input$featureInput2],
+      #                        Feature1 = cdc_data2$weapons_all,
+       #                       Feature2 = cdc_data2$weapons_gun,
+        #                      Feature3 = cdc_data2$weapons_toschool,
+         #                     Feature4 = cdc_data2$inj_weapon,
+          #                    Feature5 = cdc_data2$viol_dating1,
+           #                   Feature6 = cdc_data2$viol_dating2,
+            #                  Feature7 = cdc_data2$viol_dating3,
+             #                 Feature8 = cdc_data2$viol_dating4,
+              #                Feature9 = cdc_data2$bullied_elec,
+               #               Feature10 = cdc_data2$bullied_sch,
+                #              weight = cdc_data2$weight)
         
-         colnames(plot.df) <- c("y", "Weapons All", "Weapons Gun", "Weapons To School", "Weapons Gun", "Injured with Weapon", "Forced Intercorse",
-                                "Forced Sexual", "Forced Dating", "Dating Injured", "Bullied Electronically", "Bullied at School", "Weight")
+       
+        #  colnames(plot.df) <- c("y", "Weapons All", "Weapons Gun", "Weapons To School", "Weapons Gun", "Injured with Weapon", "Forced Intercorse",
+         #                       "Forced Sexual", "Forced Dating", "Dating Injured", "Bullied Electronically", "Bullied at School", "Weight")
     
     
          output$weapons_all <- renderPlotly({ 
@@ -57,13 +58,12 @@ shinyServer(function(input, output){
                 # layout(title = "Contour map of number of malignant cases",
                  #       xaxis = list(title = input$featureInput1),
                   #      yaxis = list(title = input$featureInput2))
-            plot.df%>%
-            ggplot(aes(x = Feature1, weight = weight)) +
-            geom_bar(aes(fill = y), position = "fill") +
+            cdc_data2%>%
+            ggplot(aes(x = weapons_all, weight = weight)) +
+            geom_bar(aes(fill = raceeth), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Number of Days Carried Weapon")})
          
-    })
     
          output$weapons_guns <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = weapons_gun, weight = weight)) +
@@ -109,7 +109,21 @@ shinyServer(function(input, output){
             coord_flip() +
             labs(y="Proportion", x = "Forced to do Other Sexual Things")
     })
- ### bully   
+ ### bully  
+         output$Electronic <- renderValueBox({
+             valueBox(value = formatC( elec_risk, format = "d", digits = 5),subtitle = "Students Electronically Bullied",icon = icon("syringe"),color = "light-blue")
+         })
+         output$School <- renderValueBox({
+             valueBox(value = formatC( sch_risk, format = "d", digits = 5),subtitle = "Students Bullied at School",icon = icon("spray-can"),color = "maroon")
+         })
+         output$Elec_resp <- renderValueBox({
+             valueBox(value = formatC( elec_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Electronicly Bullied",icon = icon("syringe"),color = "light-blue")
+         })
+         output$School_resp <- renderValueBox({
+             valueBox(value = formatC( sch_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Bullied at School",icon = icon("spray-can"),color = "maroon")
+         })
+         
+         
          output$bully_elec <- renderPlotly( {cdc_data2 %>%
             ggplot(aes(x = bullied_elec, weight = weight)) +
             geom_bar(aes(fill = raceeth), position = "fill") +
