@@ -28,36 +28,8 @@ shinyServer(function(input, output){
     output$kde_h <- renderPlotly({kde_height})
     output$kde_w <- renderPlotly({kde_weight})
     
-    
-    #observe(input$featureInput2, {
-     #   plot.df <- data.frame(cdc_data2[,input$featureInput2],
-      #                        Feature1 = cdc_data2$weapons_all,
-       #                       Feature2 = cdc_data2$weapons_gun,
-        #                      Feature3 = cdc_data2$weapons_toschool,
-         #                     Feature4 = cdc_data2$inj_weapon,
-          #                    Feature5 = cdc_data2$viol_dating1,
-           #                   Feature6 = cdc_data2$viol_dating2,
-            #                  Feature7 = cdc_data2$viol_dating3,
-             #                 Feature8 = cdc_data2$viol_dating4,
-              #                Feature9 = cdc_data2$bullied_elec,
-               #               Feature10 = cdc_data2$bullied_sch,
-                #              weight = cdc_data2$weight)
-        
-       
-        #  colnames(plot.df) <- c("y", "Weapons All", "Weapons Gun", "Weapons To School", "Weapons Gun", "Injured with Weapon", "Forced Intercorse",
-         #                       "Forced Sexual", "Forced Dating", "Dating Injured", "Bullied Electronically", "Bullied at School", "Weight")
-    
-    
+
          output$weapons_all <- renderPlotly({ 
-             
-           #  plot.df %>%
-            #     group_by(Feature1, y) %>%
-             #    summarize(Count = n()) %>%
-              #   filter(Class == "malignant") %>%
-               #  plot_ly(x = ~x, y = ~y, z = ~Count, type = "contour") %>%
-                # layout(title = "Contour map of number of malignant cases",
-                 #       xaxis = list(title = input$featureInput1),
-                  #      yaxis = list(title = input$featureInput2))
             cdc_data2%>%
             ggplot(aes(x = weapons_all, weight = weight)) +
             geom_bar(aes(fill = raceeth), position = "fill") +
@@ -85,27 +57,30 @@ shinyServer(function(input, output){
     
     
  ### dating viol   
-        output$dv_rape <- renderPlotly({cdc_data2 %>%
-            ggplot(aes(x = viol_dating1, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
-            labs(y="Proportion", x = "Forced to have Intercorse")})
+
+        output$dv_rape <-
+            renderPlotly({
+                cdc_data2 %>% 
+                ggplot(aes(x = viol_dating1, weight = weight)) +
+                geom_bar(aes(fill = cdc_data2[,input$var_select]), position = "fill") +
+                labs(y="Proportion", x = "Forced to have Intercorse")})
     
         output$dv_other <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = viol_dating2, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select2]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Forced to do Other Sexual Things")})
     
         output$dv_dating1 <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = viol_dating3, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select3]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Forced to do Other Sexual Things")})
     
     
          output$dv_dating2 <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = viol_dating4, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select4]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Forced to do Other Sexual Things")
     })

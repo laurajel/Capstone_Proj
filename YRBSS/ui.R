@@ -83,27 +83,24 @@ shinyUI(dashboardPage(
             
             tabItem(
                 tabName = "dv",
+                    fluidRow(    
+                        box(plotlyOutput("dv_rape"), width = 9, title = HTML("Ever Been Forced to have Intercorse")),
+                        box(selectizeInput("var_select","Select Variable", fill_options,
+                        ), width = 3)),
+                
                     fluidRow(
-                        box(plotlyOutput("dv_rape"), width = 7, title = HTML("Ever Been Forced to have Intercorse")),
-                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
-                                       choices = featureList, selected = "raceeth"
-                        ), width = 4)),
-                    fluidRow(
-                        box(plotlyOutput("dv_other"), width = 7, title = HTML("Forced to do Other Sexual Things by Anyone, Past 12 months")),
-                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
-                                        choices = featureList, selected = "raceeth"
-                        ), width = 4)),
+                        box(plotlyOutput("dv_other"), width = 9, title = HTML("Forced to do Other Sexual Things by Anyone, Past 12 months")),
+                        box(selectizeInput("var_select2","Select Variable", fill_options,
+                        ), width = 3)),
                      
                     fluidRow(
-                        box(plotlyOutput("dv_dating1"), width = 7, title = HTML("Forced to do Other Sexual Things by Someone Dating, Past 12 months")),
-                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
-                                        choices = featureList, selected = "raceeth"
-                        ), width = 4)),
+                        box(plotlyOutput("dv_dating1"), width = 9, title = HTML("Forced to do Other Sexual Things by Someone Dating, Past 12 months")),
+                        box(selectizeInput("var_select3","Select Variable", fill_options,
+                        ), width = 3)),
                     fluidRow(
-                        box(plotlyOutput("dv_dating2"), width = 7, title = HTML("Injured by Someone You were Dating")),
-                        box(selectInput(inputId = "featureInput2",label = "Select a Feature:",
-                                        choices = featureList, selected = "raceeth"
-                        ), width = 4))),
+                        box(plotlyOutput("dv_dating2"), width = 9, title = HTML("Injured by Someone You were Dating")),
+                        box(selectizeInput("var_select4","Select Variable", fill_options,
+                        ), width = 3))),
 
             tabItem(
                 tabName =  "bully",

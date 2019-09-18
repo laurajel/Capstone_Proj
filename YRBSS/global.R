@@ -280,7 +280,7 @@ hero_risk <- paste(round((hero_risk)*100,digits=2),"%",sep="")
 inha_risk <- paste(round((inha_risk)*100,digits=2),"%",sep="")
 meth_risk <- paste(round((meth_risk)*100,digits=2),"%",sep="")
 opi_risk <- paste(round((opi_risk)*100,digits=2),"%",sep="")
-mdma_risk <- paste(round((mdma_risk)*100,digits=2),"%",sep="")
+
 
 
 gen_drug_use <- lf_usage2 %>%
@@ -300,19 +300,19 @@ gen_drug_use <- lf_usage2 %>%
 ###### PLOTS violence
 cdc_data2 = dplyr::select(cdc_data2, -1, -100, -101, -103, -104)
 
-featureList <-colnames(cdc_data2)
+fill_options <-colnames(cdc_data2)
 
 
 ##### Bully 
 sch_risk=  (2665/14606)
-sch_risk = percent(sch_risk)
+sch_risk =  paste(round((sch_risk)*100,digits=2),"%",sep="")
 
 sch_resp = (14606/14765)
-sch_resp = percent(sch_resp)
+sch_resp = paste(round((sch_resp)*100,digits=2),"%",sep="")
 
 elec_risk = (2113/14595)
-elec_risk = percent(elec_risk)
+elec_risk = paste(round((elec_risk)*100,digits=2),"%",sep="")
 
 elec_resp = (14595/14765)
-elec_resp = percent(elec_resp)
+elec_resp = paste(round((elec_resp)*100,digits=2),"%",sep="")
 
