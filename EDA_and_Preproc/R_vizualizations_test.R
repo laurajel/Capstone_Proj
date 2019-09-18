@@ -331,3 +331,5 @@ suicide24 = cdc_data2 %>%
   ggtitle("Electronic Bullying by Sex Weighted") + 
   labs(y="Proportion", x = "Experienced Electronic Bullying")
 ggplotly(suicide24)
+
+unique(cdc_data2$inj_weapon)
