@@ -1,6 +1,6 @@
 library(shinydashboard)
 
-shinyUI(dashboardPage(
+shinyUI(dashboardPage(theme = "bootstrap.css",
     dashboardHeader(title = "YRBSS Data"),
     dashboardSidebar(
         sidebarMenu(
@@ -89,20 +89,20 @@ shinyUI(dashboardPage(
                              valueBoxOutput("Injured", width = 3)),
                 
                     fluidRow(
-                        box(plotlyOutput("weapons_all"), width = 6, title = HTML("Carried any Weapon in the Past 30 Days"),
+                        box(plotlyOutput("weapons_all"), width = 9, title = HTML("Carried any Weapon in the Past 30 Days"),
                             selectInput(inputId = "var_select10",label = "Select a Variable:",
                                         choices = fill_options)),
                         
-                        box(plotlyOutput("weapons_guns"), width = 6, title = HTML("Carried a Gun in the Past 12 Months"),
+                        box(plotlyOutput("weapons_guns"), width = 9, title = HTML("Carried a Gun in the Past 12 Months"),
                             selectInput(inputId = "var_select11",label = "Select a Variable:",
                                         choices = fill_options))),
                         
                     fluidRow(
-                        box(plotlyOutput("weapon_sch"), width = 6, title = HTML("Carried any Weapon to School in the Past 30 Days"),
+                        box(plotlyOutput("weapon_sch"), width = 9, title = HTML("Carried any Weapon to School in the Past 30 Days"),
                             selectInput(inputId = "var_select12",label = "Select a Variable:",
                                         choices = fill_options)), 
                         
-                        box(plotlyOutput("weapons_inj"), width = 6, title = HTML("Injured with any Weapon on School Property"),
+                        box(plotlyOutput("weapons_inj"), width = 9, title = HTML("Injured with any Weapon on School Property"),
                             selectInput(inputId = "var_select13",label = "Select a Variable:",
                                         choices = fill_options)))
                         ),
@@ -160,17 +160,6 @@ shinyUI(dashboardPage(
             tabItem(
                 tabName = "drug",
                     fluidRow(
-<<<<<<< HEAD
-=======
-                        box(
-                            #varSelectInput("variable", "Variable:", police_detail),
-                            #selectizeInput("views","Select Details to Explore", views),
-                            width = 12
-                            #plotlyOutput("view_by"),
-                            #title = paste("Title")
-                        ),
-
->>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
                         valueBoxOutput("heroin", width = 2),
                         valueBoxOutput("Inhalants", width = 2),
                         valueBoxOutput("Methamphetamines", width = 3),
@@ -184,20 +173,15 @@ shinyUI(dashboardPage(
                         box(plotOutput("lf_use"),width = 12,title = paste("Times Each Drug Used"))
                         ),
                     fluidRow(
-                        box(plotOutput("drug_gen"),width = 6,title = paste("Overall use by Gender")),
-                        box(plotOutput("drug_grade"),width = 6,title = paste("Overall use by Grade "))
+                        box(plotOutput("drug_gen"),width = 6,title = paste("Overall Use by Gender")),
+                        box(plotOutput("drug_grade"),width = 6,title = paste("Overall Use by Grade "))
                         ),
                     fluidRow(
                         box(plotOutput("drug_age"),width = 6,title = paste("Overall Use by Age")),
-                        box(plotOutput("drug_eth"),width = 6,title = paste("Overall use by Ethnicity"))
+                        box(plotOutput("drug_eth"),width = 6,title = paste("Overall Use by Ethnicity"))
                         ),
                     fluidRow(
-<<<<<<< HEAD
-                        box(plotOutput("drug_wt"),width = 12,title = paste("Overall use by Weight")))
-                )
-        ))))
-=======
-                        box(plotOutput("drug_wt"),width = 12,title = paste("Use by Weight")))
+                        box(plotOutput("drug_wt"),width = 12,title = paste("OVerall Use by Weight")))
                 ),
         tabItem(
             tabName = "var",
@@ -214,5 +198,5 @@ shinyUI(dashboardPage(
      )
    )
 )
->>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
+
 

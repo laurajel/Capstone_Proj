@@ -3,28 +3,16 @@ library(tidyverse)
 library(plotly)
 library(ggthemes)
 library(dplyr)
-library(DT)
 
-<<<<<<< HEAD
+#demo <- read.csv("/Users/ktread/Capstone_Proj/EDA_and_Preproc/demoXXHq_2017graphic.csv")
+demo <- read.csv("data/demographic.csv")
+answers <- read.csv("data/weighted_2017.csv")
+cdc_data2 = read.csv("data/MICE_Impute.csv")
+code = read.csv("data/YRBSS_codebook.csv")
 
-## DEMOGRAPHIC DATA 
 
-=======
-### DFs
->>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
-
-#demo <- read.csv("/Users/ktread/Capstone_Proj/EDA_and_Preproc/demographic.csv")
-demo <- read.csv("../EDA_and_Preproc/demographic.csv")
-answers <- read.csv("../DATA/weighted_2017.csv")
-cdc_data2 = read.csv("../DATA/MICE_Impute.csv")
-code = read.csv("../DATA/YRBSS_codebook.csv")
-#######
-
-## DEMOGRAPHIC DATA 
 total <- nrow(demo)
-
 gender <- demo %>%  group_by(sex) %>%  summarise(total = n())
-
 girls <- gender %>% filter(sex == "Female") %>% select(total)
 
 boys <- gender %>% filter(sex == "Male") %>% select(total)
@@ -90,7 +78,7 @@ age_gender_plot <- age_gender %>%
          yaxis = list(title = ""))
 #-----------------------------DRUG USE---------------------------------#
 
-druguse <- read.csv("../DATA/XXHq_2017.csv")
+druguse <- read.csv("data/XXHq_2017.csv")
 
 ### ADD QUESTION 49
 
@@ -123,8 +111,7 @@ drug_eth <- use_demo %>%
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"), 
-        legend.position="top")  +
-  scale_y_continuous(labels=percent)
+        legend.position="top")  
 
 
 drug_grade <- use_demo %>%
@@ -137,8 +124,7 @@ drug_grade <- use_demo %>%
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")  +
-  scale_y_continuous(labels=percent)
+        legend.position="top")  
 
 drug_age <- use_demo %>%
   ggplot(aes(x = age, weight = total_use)) +
@@ -150,8 +136,7 @@ drug_age <- use_demo %>%
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")  +
-  scale_y_continuous(labels=percent)
+        legend.position="top") 
 
 
 drug_gen <- use_demo %>%
@@ -164,8 +149,7 @@ drug_gen <- use_demo %>%
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")  +
-  scale_y_continuous(labels=percent)
+        legend.position="top")  
 
 
 drug_wt <- use_demo %>%
@@ -178,8 +162,7 @@ drug_wt <- use_demo %>%
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")  +
-  scale_y_continuous(labels=percent)
+        legend.position="top")  
 
 
 only_users <- use_demo %>% 
@@ -256,8 +239,7 @@ lf_use_plot <-
   geom_bar(aes(fill = Times), position = "fill") +
   coord_flip() +
   labs(y="", x = "") +
-  scale_fill_brewer(palette="Purples",direction = 1) +
-  scale_y_continuous(labels=percent)
+  scale_fill_brewer(palette="Purples",direction = 1) 
     
 total_per_drug <- lf_usage2 %>%  group_by(Drug) %>%  summarise(total = sum(n_times))
 
@@ -314,6 +296,7 @@ gen_drug_use <- use_gen %>%
 cdc_data2 = dplyr::select(cdc_data2, -1, -7, - 8,  -100, -101, -103, -104)
 
 fill_options <-colnames(cdc_data2)
+
 ######### Weapons
 
 wep_all = (1711/11738)
@@ -343,7 +326,6 @@ elec_risk = paste(round((elec_risk)*100,digits=2),"%",sep="")
 elec_resp = (14595/14765)
 elec_resp = paste(round((elec_resp)*100,digits=2),"%",sep="")
 
-<<<<<<< HEAD
 
 #- 142 of the 192 schools participated = 75% 
 per_school = paste(round((.75)*100,digits=2),"%",sep="")
@@ -354,9 +336,6 @@ per_submit = paste(round((.81)*100,digits=2),"%",sep="")
 #- Overall response = 75% * 80% = 60% overall response
 overall_per = paste(round((.60)*100,digits=2),"%",sep="")
 
-
-  
-=======
 ## Dating Viol
 
 rape = (1104/14440)
@@ -372,4 +351,3 @@ dating2 = (844/9553)
 dating2 = paste(round((dating2)*100, digits=2), "%", sep="")
 
 
->>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf

@@ -47,26 +47,26 @@ shinyServer(function(input, output){
             ggplot(aes(x = weapons_all, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select10]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Number of Days Carried Weapon")})
+            labs(y="Proportion", x = "Number of Days Carried Weapon", fill = input$var_select10)})
          
     
          output$weapons_guns <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = weapons_gun, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select11]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Number of Days Carried Gun")})
+            labs(y="Proportion", x = "Number of Days Carried Gun",fill = input$var_select11)})
     
         output$weapon_sch <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = weapons_toschool, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select12]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Number of Days Carried Weapon to School")})
+            labs(y="Proportion", x = "Number of Days Carried Weapon to School",fill = input$var_select12)})
     
         output$weapons_inj <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = inj_weapon, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select13]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Number of Days Injured by Weapon at School")})
+            labs(y="Proportion", x = "Number of Days Injured by Weapon at School",fill = input$var_select13)})
     
     
  ### dating viol   
@@ -87,26 +87,26 @@ shinyServer(function(input, output){
                 cdc_data2 %>% 
                 ggplot(aes(x = viol_dating1, weight = weight)) +
                 geom_bar(aes(fill = cdc_data2[,input$var_select]), position = "fill") +
-                labs(y="Proportion", x = "Forced to have Intercorse")})
+                labs(y="Proportion", x = "Forced to have Intercorse",fill = input$var_select)})
     
         output$dv_other <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = viol_dating2, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select2]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Forced to do Other Sexual Things")})
+            labs(y="Proportion", x = "Forced to do Other Sexual Things",fill = input$var_select2)})
     
         output$dv_dating1 <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = viol_dating3, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select3]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Forced to do Other Sexual Things")})
+            labs(y="Proportion", x = "Forced to do Other Sexual Things",fill = input$var_select3)})
     
     
          output$dv_dating2 <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = viol_dating4, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select4]), position = "fill") +
             coord_flip() +
-            labs(y="Proportion", x = "Forced to do Other Sexual Things")
+            labs(y="Proportion", x = "Forced to do Other Sexual Things",fill = input$var_select4)
     })
  ### bully  
          output$Electronic <- renderValueBox({
@@ -126,12 +126,12 @@ shinyServer(function(input, output){
          output$bully_elec <- renderPlotly( {cdc_data2 %>%
             ggplot(aes(x = bullied_elec, weight = weight)) +
             geom_bar(aes(fill = cdc_data2[,input$var_select5]), position = "fill") +
-            labs(y="Proportion", x = " Bullied ")})
+            labs(y="Proportion", x = " Bullied ", fill = input$var_select5)})
          
          output$bully_sch <- renderPlotly({cdc_data2 %>%
                  ggplot(aes(x = bullied_sch, weight = weight)) +
                  geom_bar(aes(fill = cdc_data2[,input$var_select6]), position = "fill") +
-                 labs(y="Proportion", x = " Bullied")})
+                 labs(y="Proportion", x = " Bullied",fill = input$var_select6)})
          
          
 
@@ -158,18 +158,15 @@ shinyServer(function(input, output){
     output$Opioids<- renderValueBox({
         valueBox(value = formatC( opi_risk, format = "d", digits = 5),subtitle = "Students Using Opioids (Illicit)",icon = icon("pillsf"),color = "orange")
         })
-<<<<<<< HEAD
+
     output$gen_drug_use <- renderPlotly({gen_drug_use})
-=======
-    output$gen_drug_use <- renderPlot({gen_drug_use})
     
     output$mytable <- DT::renderDataTable({code})
     
     output$all_var <- renderPlotly({cdc_data2 %>%
         ggplot(aes(x = cdc_data2[,input$var_select19], weight = weight)) +
         geom_bar(aes(fill = cdc_data2[,input$var_select20]), position = "fill") +
-        labs(y="Proportion", x = " Variable Levels")})
->>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
+        labs(y="Proportion", x = " Variable Levels",fill = input$var_select20)})
 
     
     output$PerSchool<- renderValueBox({
