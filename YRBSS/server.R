@@ -28,36 +28,60 @@ shinyServer(function(input, output){
     output$kde_h <- renderPlotly({kde_height})
     output$kde_w <- renderPlotly({kde_weight})
     
-
+##### weapons
+    output$All <- renderValueBox({
+      valueBox(value = formatC(wep_all, format = "d", digits = 5),subtitle = "Responding Students Reported Carrying Any Weapon (Past 30 Days)",icon = icon("exclamation-triangle"),color = "maroon")
+    })
+    output$Gun <- renderValueBox({
+      valueBox(value = formatC(wep_gun, format = "d", digits = 5),subtitle = "Responding Students Reported Carrying a Gun (Past 12 Months)",icon = icon("exclamation"),color = "orange")
+    })
+    output$To_sch <- renderValueBox({
+      valueBox(value = formatC(wep_tosch, format = "d", digits = 5),subtitle = "Responding Students Reported Carrying Any Weapon to School (Past 30 Days)",icon = icon("school"),color = "light-blue")
+    })
+    output$Injured <- renderValueBox({
+      valueBox(value = formatC(wep_inj, format = "d", digits = 5),subtitle = "Responding Students Reported being Injured by Any Weapon at School (Past 12 Months)",icon = icon("plus-square"),color = "green")
+    })
+    
          output$weapons_all <- renderPlotly({ 
             cdc_data2%>%
             ggplot(aes(x = weapons_all, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select10]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Number of Days Carried Weapon")})
          
     
          output$weapons_guns <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = weapons_gun, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select11]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Number of Days Carried Gun")})
     
         output$weapon_sch <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = weapons_toschool, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select12]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Number of Days Carried Weapon to School")})
     
         output$weapons_inj <- renderPlotly({cdc_data2 %>%
             ggplot(aes(x = inj_weapon, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select13]), position = "fill") +
             coord_flip() +
             labs(y="Proportion", x = "Number of Days Injured by Weapon at School")})
     
     
  ### dating viol   
-
+        output$Rape <- renderValueBox({
+          valueBox(value = formatC(rape, format = "d", digits = 5),subtitle = "Responding Students Reported Being Raped (Lifetime)",icon = icon("heart"),color = "maroon")
+        })
+        output$Other <- renderValueBox({
+          valueBox(value = formatC(other, format = "d", digits = 5),subtitle = "Responding Students Forced into Other Sexual Things (Past 12 Months)",icon = icon("heart"),color = "orange")
+        })
+        output$Dating1 <- renderValueBox({
+          valueBox(value = formatC(dating1, format = "d", digits = 5),subtitle = "Responding Students Forced by Someone Dating (Past 12 Months)",icon = icon("theater-masks"),color = "light-blue")
+        })
+        output$Dating2 <- renderValueBox({
+          valueBox(value = formatC(dating2, format = "d", digits = 5),subtitle = "Responding Students Injured by Someone Dating (Past 12 Months)",icon = icon("theater-masks"),color = "green")
+        })
         output$dv_rape <-
             renderPlotly({
                 cdc_data2 %>% 
@@ -86,27 +110,27 @@ shinyServer(function(input, output){
     })
  ### bully  
          output$Electronic <- renderValueBox({
-             valueBox(value = formatC( elec_risk, format = "d", digits = 5),subtitle = "Students Electronically Bullied",icon = icon("syringe"),color = "light-blue")
+             valueBox(value = formatC(elec_risk, format = "d", digits = 5),subtitle = "Responding Students Electronically Bullied (Past 12 Months)",icon = icon("mobile-alt"),color = "light-blue")
          })
          output$School <- renderValueBox({
-             valueBox(value = formatC( sch_risk, format = "d", digits = 5),subtitle = "Students Bullied at School",icon = icon("spray-can"),color = "maroon")
+             valueBox(value = formatC(sch_risk, format = "d", digits = 5),subtitle = "Responding Students Bullied at School (Past 12 Months)",icon = icon("school"),color = "light-blue")
          })
          output$Elec_resp <- renderValueBox({
-             valueBox(value = formatC( elec_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Electronicly Bullied",icon = icon("syringe"),color = "light-blue")
+             valueBox(value = formatC(elec_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Electronicly Bullied",icon = icon("mobile-alt"),color = "maroon")
          })
          output$School_resp <- renderValueBox({
-             valueBox(value = formatC( sch_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Bullied at School",icon = icon("spray-can"),color = "maroon")
+             valueBox(value = formatC(sch_resp, format = "d", digits = 5),subtitle = "Response Rate of Students Bullied at School",icon = icon("school"),color = "maroon")
          })
          
          
          output$bully_elec <- renderPlotly( {cdc_data2 %>%
             ggplot(aes(x = bullied_elec, weight = weight)) +
-            geom_bar(aes(fill = raceeth), position = "fill") +
+            geom_bar(aes(fill = cdc_data2[,input$var_select5]), position = "fill") +
             labs(y="Proportion", x = " Bullied ")})
          
          output$bully_sch <- renderPlotly({cdc_data2 %>%
                  ggplot(aes(x = bullied_sch, weight = weight)) +
-                 geom_bar(aes(fill = raceeth), position = "fill") +
+                 geom_bar(aes(fill = cdc_data2[,input$var_select6]), position = "fill") +
                  labs(y="Proportion", x = " Bullied")})
          
          
@@ -134,7 +158,18 @@ shinyServer(function(input, output){
     output$Opioids<- renderValueBox({
         valueBox(value = formatC( opi_risk, format = "d", digits = 5),subtitle = "Students Using Opioids (Illicit)",icon = icon("pillsf"),color = "orange")
         })
+<<<<<<< HEAD
     output$gen_drug_use <- renderPlotly({gen_drug_use})
+=======
+    output$gen_drug_use <- renderPlot({gen_drug_use})
+    
+    output$mytable <- DT::renderDataTable({code})
+    
+    output$all_var <- renderPlotly({cdc_data2 %>%
+        ggplot(aes(x = cdc_data2[,input$var_select19], weight = weight)) +
+        geom_bar(aes(fill = cdc_data2[,input$var_select20]), position = "fill") +
+        labs(y="Proportion", x = " Variable Levels")})
+>>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
 
     
     output$PerSchool<- renderValueBox({

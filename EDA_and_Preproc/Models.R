@@ -143,7 +143,7 @@ write.table(ctable, file = "Weapons_tosch_sum.txt", sep = ",", quote = FALSE, ro
 ###### injured weapon
 
 fit10 = with(data = train_na, exp = svyolr(inj_weapon ~ raceeth +  Sex+ Age + Grade + height + indv_weight + seatbelt_wear + pass_drink_drv + drink_drv + drv_text_email + 
-                                            unsafe + bullied_sch + bullied_elec + sad + suicide_consider + suicide_plan + suicide_attempt + suicide_treat  , design = des2))
+                                             unsafe + bullied_sch + bullied_elec + sad + suicide_consider   , design = des2))
 summary(fit10)
 (ctable <- coef(summary(fit10)))
 p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2

@@ -3,17 +3,24 @@ library(tidyverse)
 library(plotly)
 library(ggthemes)
 library(dplyr)
+library(DT)
 
+<<<<<<< HEAD
 
 ## DEMOGRAPHIC DATA 
 
+=======
+### DFs
+>>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
 
 #demo <- read.csv("/Users/ktread/Capstone_Proj/EDA_and_Preproc/demographic.csv")
 demo <- read.csv("../EDA_and_Preproc/demographic.csv")
 answers <- read.csv("../DATA/weighted_2017.csv")
-
 cdc_data2 = read.csv("../DATA/MICE_Impute.csv")
+code = read.csv("../DATA/YRBSS_codebook.csv")
+#######
 
+## DEMOGRAPHIC DATA 
 total <- nrow(demo)
 
 gender <- demo %>%  group_by(sex) %>%  summarise(total = n())
@@ -304,12 +311,26 @@ gen_drug_use <- use_gen %>%
 
 
 ###### PLOTS violence
-cdc_data2 = dplyr::select(cdc_data2, -1, -100, -101, -103, -104)
+cdc_data2 = dplyr::select(cdc_data2, -1, -7, - 8,  -100, -101, -103, -104)
 
 fill_options <-colnames(cdc_data2)
+######### Weapons
 
+wep_all = (1711/11738)
+wep_all = paste(round((wep_all)*100,digits=2),"%",sep="")
+
+wep_tosch = (604/14507)
+wep_tosch = paste(round((wep_tosch)*100,digits=2),"%",sep="")
+
+wep_gun = (728/14195)
+wep_gun = paste(round((wep_gun)*100,digits=2),"%",sep="")
+
+wep_inj = (934/14702)
+wep_inj = paste(round((wep_inj)*100,digits=2),"%",sep="")
 
 ##### Bully 
+
+
 sch_risk=  (2665/14606)
 sch_risk =  paste(round((sch_risk)*100,digits=2),"%",sep="")
 
@@ -322,6 +343,7 @@ elec_risk = paste(round((elec_risk)*100,digits=2),"%",sep="")
 elec_resp = (14595/14765)
 elec_resp = paste(round((elec_resp)*100,digits=2),"%",sep="")
 
+<<<<<<< HEAD
 
 #- 142 of the 192 schools participated = 75% 
 per_school = paste(round((.75)*100,digits=2),"%",sep="")
@@ -334,3 +356,20 @@ overall_per = paste(round((.60)*100,digits=2),"%",sep="")
 
 
   
+=======
+## Dating Viol
+
+rape = (1104/14440)
+rape = paste(round((rape)*100,digits=2),"%",sep="")
+
+other = (1421/14145)
+other = paste(round((other)*100, digits=2), "%", sep="")
+
+dating1 =(628/9231)
+dating1 = paste(round((dating1)*100, digits=2), "%", sep="")
+
+dating2 = (844/9553)
+dating2 = paste(round((dating2)*100, digits=2), "%", sep="")
+
+
+>>>>>>> 98caea48443cf833d166f07604c462bfecf41aaf
