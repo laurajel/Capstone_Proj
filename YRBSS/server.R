@@ -159,6 +159,13 @@ shinyServer(function(input, output){
         valueBox(value = formatC( opi_risk, format = "d", digits = 5),subtitle = "Students Using Opioids (Illicit)",icon = icon("pillsf"),color = "orange")
         })
     output$gen_drug_use <- renderPlot({gen_drug_use})
+    
+    output$mytable <- DT::renderDataTable({code})
+    
+    output$all_var <- renderPlotly({cdc_data2 %>%
+        ggplot(aes(x = cdc_data2[,input$var_select19], weight = weight)) +
+        geom_bar(aes(fill = cdc_data2[,input$var_select20]), position = "fill") +
+        labs(y="Proportion", x = " Variable Levels")})
 
 })
 

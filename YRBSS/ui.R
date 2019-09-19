@@ -9,7 +9,8 @@ shinyUI(dashboardPage(
             menuItem("Youth Violence", tabName = "vio", icon = icon("ambulance")),
             menuItem("Youth Dating Violence", tabName = "dv", icon= icon("heart")),
             menuItem("Youth Bullying", tabName = "bully" , icon = icon("sad-tear")),
-            menuItem("Youth Drug Use", tabName = "drug", icon = icon("pills"))
+            menuItem("Youth Drug Use", tabName = "drug", icon = icon("pills")),
+            menuItem("Variable Codebook", tabName =  "var", icon = icon("book"))
         )),
     dashboardBody(
         tabItems(
@@ -169,7 +170,20 @@ shinyUI(dashboardPage(
                         ),
                     fluidRow(
                         box(plotOutput("drug_wt"),width = 12,title = paste("Use by Weight")))
-                )
-        ))
-    ))
+                ),
+        tabItem(
+            tabName = "var",
+            fluidRow(
+                box(DT::dataTableOutput("mytable"), width = 12, title = HTML("YRBSS Codebook"))),
+            fluidRow(
+                box(plotlyOutput("all_var"), width = 12, title = HTML("Choose any two Variables"),
+                    selectInput(inputId = "var_select19",label = "Select a Variable:",
+                                choices = fill_options, selected = "raceeth"),
+                    selectInput(inputId = "var_select20", label = "Select a Variable:",
+                                choices = fill_options, selected = "Age")))
+            )
+        )
+     )
+   )
+)
 

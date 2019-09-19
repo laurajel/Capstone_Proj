@@ -3,16 +3,18 @@ library(tidyverse)
 library(plotly)
 library(ggthemes)
 library(dplyr)
+library(DT)
 
-## DEMOGRAPHIC DATA 
-
+### DFs
 
 #demo <- read.csv("/Users/ktread/Capstone_Proj/EDA_and_Preproc/demographic.csv")
 demo <- read.csv("../EDA_and_Preproc/demographic.csv")
 answers <- read.csv("../DATA/weighted_2017.csv")
-
 cdc_data2 = read.csv("../DATA/MICE_Impute.csv")
+code = read.csv("../DATA/YRBSS_codebook.csv")
+#######
 
+## DEMOGRAPHIC DATA 
 total <- nrow(demo)
 
 gender <- demo %>%  group_by(sex) %>%  summarise(total = n())
@@ -298,7 +300,7 @@ gen_drug_use <- lf_usage2 %>%
         legend.position="top")
 
 ###### PLOTS violence
-cdc_data2 = dplyr::select(cdc_data2, -1, -100, -101, -103, -104)
+cdc_data2 = dplyr::select(cdc_data2, -1, -7, - 8,  -100, -101, -103, -104)
 
 fill_options <-colnames(cdc_data2)
 ######### Weapons
