@@ -4,6 +4,7 @@ library(plotly)
 library(ggthemes)
 library(dplyr)
 
+
 ## DEMOGRAPHIC DATA 
 
 
@@ -109,69 +110,69 @@ drug_eth <- use_demo %>%
   ggplot(aes(x = raceeth, weight = total_use)) +
   geom_bar(aes(fill = drug_use), position = "fill") +
   coord_flip() +
-  ggtitle("Reported Drug Use by Ethnicity") + 
   labs(y="Proportion", x = "") +
-  scale_fill_manual(values = c("#fff7f1", "#ff5500"),
+  scale_fill_manual(values = c("#d0a3ff", "#a360fb"),
                     labels=c("Never Used", "Used at Least Once"),
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")
+        panel.background = element_blank(), axis.line = element_line(colour = "gray"), 
+        legend.position="top")  +
+  scale_y_continuous(labels=percent)
 
 
 drug_grade <- use_demo %>%
   ggplot(aes(x = grade, weight = total_use)) +
   geom_bar(aes(fill = drug_use), position = "fill") +
   coord_flip() +
-  ggtitle("Reported Drug Use by Grade") + 
   labs(y="Proportion", x = "") +
-  scale_fill_manual(values = c("#fff7f1", "#ff5500"),
+  scale_fill_manual(values = c("#d0a3ff", "#a360fb"),
                     labels=c("Never Used", "Used at Least Once"),
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")
+        legend.position="top")  +
+  scale_y_continuous(labels=percent)
 
 drug_age <- use_demo %>%
   ggplot(aes(x = age, weight = total_use)) +
   geom_bar(aes(fill = drug_use), position = "fill") +
   coord_flip() +
-  ggtitle("Reported Drug Use by Age") + 
   labs(y="Proportion", x = "") +
-  scale_fill_manual(values = c("#fff7f1", "#ff5500"),
+  scale_fill_manual(values = c("#d0a3ff", "#a360fb"),
                     labels=c("Never Used", "Used at Least Once"),
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")
+        legend.position="top")  +
+  scale_y_continuous(labels=percent)
 
 
 drug_gen <- use_demo %>%
   ggplot(aes(x = sex, weight = total_use)) +
   geom_bar(aes(fill = drug_use), position = "fill") +
   coord_flip() +
-  ggtitle("Reported Drug Use by Gender") + 
   labs(y="Proportion", x = "") +
-  scale_fill_manual(values = c("#fff7f1", "#ff5500"),
+  scale_fill_manual(values = c("#d0a3ff", "#a360fb"),
                     labels=c("Never Used", "Used at Least Once"),
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")
+        legend.position="top")  +
+  scale_y_continuous(labels=percent)
 
 
 drug_wt <- use_demo %>%
   ggplot(aes(x = weight_status, weight = total_use)) +
   geom_bar(aes(fill = drug_use), position = "fill") +
   coord_flip() +
-  ggtitle("Reported Drug Use by Weight") + 
   labs(y="Proportion", x = "") +
-  scale_fill_manual(values = c("#fff7f1", "#ff5500"),
+  scale_fill_manual(values = c("#d0a3ff", "#a360fb"),
                     labels=c("Never Used", "Used at Least Once"),
                     name="",) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")
+        legend.position="top")  +
+  scale_y_continuous(labels=percent)
 
 
 only_users <- use_demo %>% 
@@ -205,28 +206,6 @@ full_demo_qs <- only_users %>%
                                                  ifelse(MDMA == 5, "20-39 times","40+ times"))))))
 
 
-
-inhalants_df <- full_demo_qs %>%
-  filter(Inhalants != "Never")
-
-inhalants_df$main2 = "Inhalants"
-total_inh = nrow(inhalants_df)
-
-inh_plot <- 
-  inhalants_df %>%
-  ggplot(aes(x = 1, weight = total_inh)) +
-  geom_bar(aes(fill = Inhalants), position = "fill") +
-  coord_flip() +
-  ggtitle("Inhalants") + 
-  labs(y="", x = "Inhalants") +
-  scale_fill_brewer(palette="Blues",direction = 1,
-                    #labels=Inhalants,
-                    name="") +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="none",axis.text.y = element_blank())
-
-
 ####
 
 hero <- as.data.frame(table(full_demo_qs$Heroin,full_demo_qs$sex))
@@ -255,17 +234,24 @@ lf_usage2 <- melt(lf_usage, id = c("Times","Sex"))
 names(lf_usage2) <- c("Times", "Sex", "Drug","n_times")
 lf_usage2$Drug <- as.factor(lf_usage2$Drug)
 
+
+lf_usage2$Times <- factor(lf_usage2$Times , levels = c("1-2 times", 
+                                                       "3-9 times", 
+                                                       "10-19 times",
+                                                       "20-39 times",
+                                                       "40+ times"))
+
+
+
 lf_use_plot <- 
   lf_usage2 %>%
-  ggplot(aes(x = Drug, weight = n_times)) +
+  ggplot(aes(x = Drug, weight = n_times) ) +
   geom_bar(aes(fill = Times), position = "fill") +
   coord_flip() +
-  ggtitle("Lifetime Drug Use (Number of Occurrences)") + 
   labs(y="", x = "") +
-  scale_fill_brewer(palette="Oranges",direction = 1)
-
-
-
+  scale_fill_brewer(palette="Purples",direction = 1) +
+  scale_y_continuous(labels=percent)
+    
 total_per_drug <- lf_usage2 %>%  group_by(Drug) %>%  summarise(total = sum(n_times))
 
 total_per_drug$percent <- (total_per_drug$total/total)
@@ -283,19 +269,39 @@ opi_risk <- paste(round((opi_risk)*100,digits=2),"%",sep="")
 
 
 
-gen_drug_use <- lf_usage2 %>%
-  filter(Sex != "None") %>% 
-  ggplot(aes(x = Drug, weight = n_times)) +
-  geom_bar(aes(fill = Sex), position = "fill") +
-  coord_flip() +
-  ggtitle("Drug Use by Gender") + 
-  labs(y="Proportion", x = "") +
-  scale_fill_manual(values = c("#4169e1", "#dc143c"),
-                    labels=c("Boys", "Girls"),
-                    name="",) +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "gray"),
-        legend.position="top")
+gen_drug_u <- lf_usage2 %>% 
+  select(Sex, Drug, n_times) %>% 
+  group_by(Sex, Drug) %>% 
+  summarise(t_times = sum(n_times)) %>% 
+  ungroup()
+  
+
+f_gen_drug_u <- gen_drug_u %>%filter(Sex=="Female") %>%  select(Drug,t_times) 
+names(f_gen_drug_u) <- c("Drug","Female")
+  
+m_gen_drug_u <- gen_drug_u %>%filter(Sex=="Male") %>%  select(t_times) 
+names(m_gen_drug_u) <- c("Male")
+
+use_gen <- cbind(f_gen_drug_u,m_gen_drug_u)
+
+
+gen_drug_use <- use_gen %>% 
+  plot_ly() %>%
+  add_trace(x = ~Drug, y = ~Male, type = 'bar', 
+            text = ~Male, textposition = 'auto',
+            name = "Male",
+            marker = list(color = 'rgb(65,105,225)',
+                          line = list(color = 'rgb(65,105,225)', width = 1.5))) %>%
+  add_trace(x = ~Drug, y = ~Female, type = 'bar', 
+            text = ~Female, textposition = 'auto',
+            name = "Female",
+            marker = list(color = 'rgb(220,20,60)',
+                          line = list(color = 'rgb(220,20,60)', width = 1.5))) %>%
+  layout(title = "",
+         barmode = 'group',
+         xaxis = list(title = ""),
+         yaxis = list(title = ""))  
+
 
 ###### PLOTS violence
 cdc_data2 = dplyr::select(cdc_data2, -1, -100, -101, -103, -104)
@@ -316,3 +322,15 @@ elec_risk = paste(round((elec_risk)*100,digits=2),"%",sep="")
 elec_resp = (14595/14765)
 elec_resp = paste(round((elec_resp)*100,digits=2),"%",sep="")
 
+
+#- 142 of the 192 schools participated = 75% 
+per_school = paste(round((.75)*100,digits=2),"%",sep="")
+  
+#- 14,956 of the 18,324 sampled students submitted questionnaires = 81% student response
+per_submit = paste(round((.81)*100,digits=2),"%",sep="")
+
+#- Overall response = 75% * 80% = 60% overall response
+overall_per = paste(round((.60)*100,digits=2),"%",sep="")
+
+
+  

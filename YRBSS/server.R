@@ -134,7 +134,18 @@ shinyServer(function(input, output){
     output$Opioids<- renderValueBox({
         valueBox(value = formatC( opi_risk, format = "d", digits = 5),subtitle = "Students Using Opioids (Illicit)",icon = icon("pillsf"),color = "orange")
         })
-    output$gen_drug_use <- renderPlot({gen_drug_use})
+    output$gen_drug_use <- renderPlotly({gen_drug_use})
 
+    
+    output$PerSchool<- renderValueBox({
+        valueBox(value = formatC( per_school, format = "d", digits = 5),subtitle = "School Response Rate",icon = icon("school"),color = "light-blue")
+    })
+    output$PerSubmit<- renderValueBox({
+        valueBox(value = formatC( per_submit, format = "d", digits = 5),subtitle = "Student Response Rate",icon = icon("user-graduate"),color = "maroon")
+    })
+    output$OverallPer<- renderValueBox({
+        valueBox(value = formatC( overall_per, format = "d", digits = 5),subtitle = "Overall Response Rate",icon = icon("poll-h"),color = "blue")
+    })
+    
 })
 
